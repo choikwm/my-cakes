@@ -85,8 +85,6 @@ const ProductDetails = () => {
                 <MenuItem value={3}>3</MenuItem>
               </Select>
             </Typography>
-
-            <></>
             <Button>Add to Cart</Button>
 
             <Box sx={{ flexDirection: "column", justifyContent: "center" }}>
