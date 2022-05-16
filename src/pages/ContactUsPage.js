@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import Calendar from "react-calendar";
 
 const ContactUsPage = () => {
+  const [deliveryDate, onChange] = useState(new Date());
   return (
     <>
       <Container
@@ -38,6 +41,33 @@ const ContactUsPage = () => {
           WhatsApp at +852 8888 8888. Of course if you like to fill in forms
           you're welcome to use the below ;){" "}
         </Typography>
+
+        <Typography
+          sx={{
+            color: "#bd9191",
+            fontSize: "18px",
+            ml: "1rem",
+            mt: "2rem",
+          }}
+        >
+          Interested in corporate together? Let's make an appointment below to
+          have a talk!
+        </Typography>
+
+        <Container
+          maxWidth="lg"
+          sx={{
+            mb: "3rem",
+          }}
+        >
+          <Box sx={{ width: "200px", mt: "1rem" }}>
+            <Calendar
+              sx={{ fontsize: "12px" }}
+              onChange={onChange}
+              value={deliveryDate}
+            />
+          </Box>
+        </Container>
       </Container>
     </>
   );

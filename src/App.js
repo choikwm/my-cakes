@@ -11,10 +11,10 @@ import AboutUsPage from "./pages/AboutUsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import PromotionPage from "./pages/PromotionPage";
 import ProductPage from "./pages/ProductPage";
+import ShoppingCartPage from "./pages/ShoppingCartPage";
 
 import HeaderBar from "./components/HeaderBar";
 import FooterBar from "./components/FooterBar";
-import ProductDetailsPage from "./pages/ProductDetailsPage";
 import ProductDetails from "./components/ProductDetails";
 
 // import ReactFullpage from "@fullpage/react-fullpage";
@@ -42,7 +42,7 @@ function App() {
           <Route path="promotions" element={<PromotionPage />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="products/:id" element={<ProductDetails />} />
-          <Route path="products-details" element={<ProductDetailsPage />} />
+          <Route path="shoppingcart" element={<ShoppingCartPage />} />
         </Route>
       </Routes>
     </ThemeProvider>

@@ -47,21 +47,18 @@ const HeaderBar = () => {
       name: "Products",
       link: "/products",
     },
-    {
-      name: "Products Details",
-      link: "/products-details",
-    },
+
     {
       name: "Promotions",
       link: "/promotions",
     },
     {
-      name: "Blog",
-      link: "/blog",
-    },
-    {
       name: "Contact Us",
       link: "/contactus",
+    },
+    {
+      name: "Shopping Cart",
+      link: "/shoppingcart",
     },
   ];
   const settings = ["Sign Up", "Sign In"];

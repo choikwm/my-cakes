@@ -3,6 +3,7 @@ import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
 import commerce from "../lib/commerce";
 import ProductItem from "../components/ProductItem";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ProductPage = () => {
   const [loading, setLoading] = useState(true);
@@ -34,10 +35,10 @@ const ProductPage = () => {
       maxWidth="md"
       sx={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         // justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        // height: "100vh",
         mt: "1rem",
       }}
     >
@@ -53,7 +54,9 @@ const ProductPage = () => {
         View our collections
       </Typography>
       {loading ? (
-        <Typography variant="body2">Loading</Typography>
+        <Typography variant="body2">
+          <CircularProgress />
+        </Typography>
       ) : (
         <>
           {products.map((item) => (

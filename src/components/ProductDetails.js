@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Container } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,6 +18,21 @@ const ProductDetails = () => {
   const [selectedPrice, setSelectedPrice] = useState(
     defaultOption.price.formatted_with_symbol
   );
+
+  const [defaultQuanity, setDefaultQuanity] = useState(1);
+
+  let productDescription = description.slice(3, description.length - 4);
+
+  let navigate = useNavigate();
+
+  // const functionName = (param, param2, param3) => {
+  //   // whatever you want to do
+  // };
+
+  const handleQuanityChange = (event) => {
+    console.log("event", event);
+    setDefaultQuanity(event.target.value);
+  };
 
   const handleSizeChange = (event) => {
     const { value } = event.target;
@@ -59,15 +74,22 @@ const ProductDetails = () => {
             >
               {name}
             </Typography>
-            <Typography variant="h9" sx={{ fontSize: "14px" }}>
+            <Typography
+              variant="h9"
+              sx={{ fontSize: "14px", mt: "0.5rem", mb: "0.5rem" }}
+            >
               Price: {selectedPrice}
             </Typography>
-            <Typography variant="h9" sx={{ fontSize: "14px" }}>
-              Size:
+
+            <Stack direction="row">
+              <Typography variant="h9" sx={{ fontSize: "14px", mt: "1rem" }}>
+                Size:
+              </Typography>
               <Select
-                fullWidth
                 value={selectedSize}
                 onChange={handleSizeChange}
+                // MaxWidth="100px"
+                sx={{ maxHeight: 30 }}
               >
                 {variant_groups[0].options.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
@@ -75,17 +97,33 @@ const ProductDetails = () => {
                   </MenuItem>
                 ))}
               </Select>
-            </Typography>
+            </Stack>
 
-            <Typography variant="h9" sx={{ fontSize: "14px" }}>
-              Quanity:
-              <Select fullWidth>
+            <Stack direction="row">
+              <Typography variant="h9" sx={{ fontSize: "14px", mt: "1rem" }}>
+                Quanity:
+              </Typography>
+              <Select
+                value={defaultQuanity}
+                onChange={handleQuanityChange}
+                width="100px"
+                sx={{ minWidth: 200, maxHeight: 30 }}
+              >
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
               </Select>
-            </Typography>
-            <Button>Add to Cart</Button>
+            </Stack>
+
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate("/shoppingcart");
+              }}
+              sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
+            >
+              Add to Cart
+            </Button>
 
             <Box sx={{ flexDirection: "column", justifyContent: "center" }}>
               <Typography
@@ -102,7 +140,7 @@ const ProductDetails = () => {
                   fontSize: "15px",
                 }}
               >
-                {description}
+                {productDescription}ç
               </Typography>
             </Box>
 

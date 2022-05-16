@@ -84,7 +84,6 @@ const FooterBar = () => {
             size="small"
             // style={{ color: "#9e8a6f" }}
             sx={{ mb: "2rem", ml: "1rem", mr: "1rem", color: common.white }}
-            // onClick={checkEmptyLogin}
           >
             Subscribe
           </Button>
