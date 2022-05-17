@@ -7,12 +7,24 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+
+import { styled } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+
 import FormControl from "@mui/material/FormControl";
 
 const ProductDetails = () => {
   const location = useLocation();
   const data = location.state;
-  const { name, price, image, variant_groups, description } = data;
+  const {
+    id: productId,
+    name,
+    price,
+    image,
+    variant_groups,
+    description,
+  } = data;
   const defaultOption = variant_groups[0].options[0];
   const [selectedSize, setSelectedSize] = useState(defaultOption.id);
   const [selectedPrice, setSelectedPrice] = useState(
@@ -21,9 +33,17 @@ const ProductDetails = () => {
 
   const [defaultQuanity, setDefaultQuanity] = useState(1);
 
-  let productDescription = description.slice(3, description.length - 4);
+  let productDescription = description.slice(3, description.length - 5);
 
   let navigate = useNavigate();
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
 
   // const functionName = (param, param2, param3) => {
   //   // whatever you want to do
@@ -40,6 +60,42 @@ const ProductDetails = () => {
     const price = variant_groups[0].options.find((item) => item.id === value)
       .price.formatted_with_symbol;
     setSelectedPrice(price);
+  };
+
+  const handleAddCart = () => {
+    // const item = {
+    //   [productId]: {
+    //     quantity: defaultQuanity,
+    //     selected_options: {
+    //       [variant_groups[0].id]: selectedSize,
+    //     },
+    //   },
+    // };
+    const cart = localStorage.getItem("my-cakes-cart");
+    if (cart) {
+      const cartObj = JSON.parse(cart);
+      // cartObj.line_items[productId] = {
+      //   quantity: defaultQuanity,
+      //   selected_options: {
+      //     [variant_groups[0].id]: selectedSize,
+      //   },
+      // };
+      console.log("cartObj", JSON.stringify(cartObj));
+      // localStorage.setItem("my-cakes-cart", cartObj)
+    } else {
+      const cart = {
+        line_items: {
+          [productId]: {
+            quantity: defaultQuanity,
+            selected_options: {
+              [variant_groups[0].id]: selectedSize,
+            },
+          },
+        },
+      };
+      console.log("new cart", cart);
+      localStorage.setItem("my-cakes-cart", JSON.stringify(cart));
+    }
   };
 
   return (
@@ -117,9 +173,10 @@ const ProductDetails = () => {
 
             <Button
               variant="contained"
-              onClick={() => {
-                navigate("/shoppingcart");
-              }}
+              onClick={handleAddCart}
+              // onClick={() => {
+              //   navigate("/shoppingcart");
+              // }}
               sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
             >
               Add to Cart
@@ -140,7 +197,7 @@ const ProductDetails = () => {
                   fontSize: "15px",
                 }}
               >
-                {productDescription}ç
+                {productDescription}
               </Typography>
             </Box>
 

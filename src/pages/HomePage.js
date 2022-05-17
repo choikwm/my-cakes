@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderBar from "../components/HeaderBar";
+
 import coverPhoto from "../images/homePageImages/coverPhoto.jpeg";
 import coverPhoto2 from "../images/homePageImages/coverPhoto2.jpeg";
 import coverPhoto3 from "../images/homePageImages/coverPhoto3.jpeg";
@@ -23,8 +23,7 @@ const HomePage = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
-          mt: "1rem",
+          mt: "1.5rem",
         }}
       >
         <Carousel
