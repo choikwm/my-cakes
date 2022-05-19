@@ -11,19 +11,19 @@ const ProductPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    const fetchProducts = () => {
-      commerce.products
-        .list()
-        .then((products) => {
-          console.log("api products", products);
-          setProducts(products.data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log("There was an error fetching the products", error);
-        });
-    };
-    fetchProducts();
+    // const fetchProducts = () => {
+    commerce.products
+      .list()
+      .then((products) => {
+        console.log("api products", products);
+        setProducts(products.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("There was an error fetching the products", error);
+      });
+    // };
+    // fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -34,12 +34,11 @@ const ProductPage = () => {
     <Container
       maxWidth="md"
       sx={{
-        display: "flex",
-        flexDirection: "row",
-        // justifyContent: "center",
+        // display: { xs: "flex", md: "none" },
+        flexDirection: { xs: "column", sm: "row" },
         alignItems: "center",
-        // height: "100vh",
         mt: "1rem",
+        mb: "1rem",
       }}
     >
       <Typography
