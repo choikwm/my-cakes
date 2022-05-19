@@ -4,15 +4,13 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-
 import FormControl from "@mui/material/FormControl";
+import commerce from "../lib/commerce";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -31,7 +29,7 @@ const ProductDetails = () => {
     defaultOption.price.formatted_with_symbol
   );
 
-  const [defaultQuanity, setDefaultQuanity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
 
   let productDescription = description.slice(3, description.length - 5);
 
@@ -51,7 +49,7 @@ const ProductDetails = () => {
 
   const handleQuanityChange = (event) => {
     console.log("event", event);
-    setDefaultQuanity(event.target.value);
+    setQuantity(event.target.value);
   };
 
   const handleSizeChange = (event) => {
@@ -63,39 +61,10 @@ const ProductDetails = () => {
   };
 
   const handleAddCart = () => {
-    // const item = {
-    //   [productId]: {
-    //     quantity: defaultQuanity,
-    //     selected_options: {
-    //       [variant_groups[0].id]: selectedSize,
-    //     },
-    //   },
-    // };
-    const cart = localStorage.getItem("my-cakes-cart");
-    if (cart) {
-      const cartObj = JSON.parse(cart);
-      // cartObj.line_items[productId] = {
-      //   quantity: defaultQuanity,
-      //   selected_options: {
-      //     [variant_groups[0].id]: selectedSize,
-      //   },
-      // };
-      console.log("cartObj", JSON.stringify(cartObj));
-      // localStorage.setItem("my-cakes-cart", cartObj)
-    } else {
-      const cart = {
-        line_items: {
-          [productId]: {
-            quantity: defaultQuanity,
-            selected_options: {
-              [variant_groups[0].id]: selectedSize,
-            },
-          },
-        },
-      };
-      console.log("new cart", cart);
-      localStorage.setItem("my-cakes-cart", JSON.stringify(cart));
-    }
+    commerce.cart.add(productId, quantity, {
+      [variant_groups[0].id]: selectedSize,
+      // ... any other group -> options here
+    });
   };
 
   return (
@@ -121,7 +90,6 @@ const ProductDetails = () => {
               ml: "2rem",
             }}
           >
-            <></>
             <Typography
               sx={{
                 color: "#bd9191",
@@ -160,7 +128,7 @@ const ProductDetails = () => {
                 Quanity:
               </Typography>
               <Select
-                value={defaultQuanity}
+                value={quantity}
                 onChange={handleQuanityChange}
                 width="100px"
                 sx={{ minWidth: 200, maxHeight: 30 }}
