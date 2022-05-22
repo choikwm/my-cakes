@@ -35,6 +35,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate, Link } from "react-router-dom";
+import { Stack } from "@mui/material";
 
 const HeaderBar = () => {
   // const pages = ["About Us", "Products", "Promotions", "Blog", "Contact Us"];
@@ -49,16 +50,16 @@ const HeaderBar = () => {
     },
 
     {
-      name: "Promotions",
-      link: "/promotions",
-    },
-    {
       name: "Contact Us",
       link: "/contactus",
     },
     {
       name: "Shopping Cart",
       link: "/shoppingcart",
+    },
+    {
+      name: "Check Out",
+      link: "/checkout",
     },
   ];
   const settings = ["Sign Up", "Sign In"];
@@ -193,8 +194,8 @@ const HeaderBar = () => {
               mr: "1rem",
             }}
           >
-            Limited Offer: Enjoy $50 off discounts for order above $500 by enter
-            "WELCOME50" upon check out!
+            Enjoy 10% OFF of your first order by enter "WELCOME10" coupon code
+            upon check out!
           </Typography>
         </Container>
       </Box>
@@ -216,9 +217,9 @@ const HeaderBar = () => {
           </Link>
         </Container>
         <></>
-        <Container maxWidth="lg" sx={{ display: { xs: "none", md: "flex" } }}>
-          <Toolbar>
-            <Box
+        {/* <Container maxWidth="lg" sx={{ display: { xs: "none", md: "flex" } }}> */}
+        <Toolbar sx={{ display: { xs: "none", md: "flex" } }}>
+          {/* <Box
               sx={{
                 flexGrow: 1,
                 display: { xs: "flex", md: "none" },
@@ -261,95 +262,95 @@ const HeaderBar = () => {
                   </MenuItem>
                 ))}
               </Menu>
-            </Box>
+            </Box> */}
 
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex" },
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            {pages.map((page) => (
+              <Button
+                key={page.link}
+                onClick={() => {
+                  navigate(page.link);
+                }}
+                sx={{ color: "white", display: "block" }}
+              >
+                {page.name}
+              </Button>
+            ))}
+          </Box>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              sx={{ display: { xs: "none", md: "flex" } }}
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Tooltip title="My Account">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <AccountBoxIcon />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
               }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              {pages.map((page) => (
-                <Button
-                  key={page.link}
-                  onClick={() => {
-                    navigate(page.link);
-                  }}
-                  sx={{ color: "white", display: "block" }}
-                >
-                  {page.name}
-                </Button>
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
               ))}
-            </Box>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                sx={{ display: { xs: "none", md: "flex" } }}
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            </Menu>
 
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
+            <Tooltip title="View Shopping Cart">
+              <IconButton
+                onClick={toggleDrawer(true)}
+                sx={{ p: 0, ml: "0.5rem", mr: "0.5rem" }}
+              >
+                <ShoppingCartIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Drawer
+              anchor="right"
+              open={isViewCartOpen}
+              onClose={toggleDrawer(false)}
             >
-              <Tooltip title="My Account">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <AccountBoxIcon />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-
-              <Tooltip title="View Shopping Cart">
-                <IconButton
-                  onClick={toggleDrawer(true)}
-                  sx={{ p: 0, ml: "0.5rem", mr: "0.5rem" }}
-                >
-                  <ShoppingCartIcon />
-                </IconButton>
-              </Tooltip>
-
-              <Drawer
-                anchor="right"
-                open={isViewCartOpen}
-                onClose={toggleDrawer(false)}
-              >
-                {list()}
-              </Drawer>
-            </Box>
-          </Toolbar>
-        </Container>
+              {list()}
+            </Drawer>
+          </Box>
+        </Toolbar>
+        {/* </Container> */}
 
         {/* Container for XS view */}
 
-        <Container
+        {/* <Container
           maxWidth="xl"
           sx={{
             display: "flex",
@@ -358,58 +359,64 @@ const HeaderBar = () => {
             alignItems: "center",
             display: { xs: "flex", md: "none" },
           }}
+        > */}
+
+        <Toolbar
+          sx={{
+            display: { xs: "flex", md: "none" },
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         >
           <Link to="/">
             <img src={companyLogo} width="150px" height="100px" />
           </Link>
-
-          <Toolbar>
-            <Box
-              sx={{
-                display: { xs: "flex", md: "none" },
-              }}
+          <Stack
+            direction="row"
+            // sx={{
+            //   display: { xs: "flex", md: "none" },
+            // }}
+          >
+            <IconButton
+              size="large"
+              aria-label="My Account"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
             >
-              <IconButton
-                size="large"
-                aria-label="My Account"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
+              <MenuIcon />
+            </IconButton>
 
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{ display: { xs: "block", md: "none" } }}
-              >
-                {pages.map((page) => (
-                  <MenuItem
-                    key={page.link}
-                    onClick={() => {
-                      navigate(page.link);
-                    }}
-                  >
-                    <Typography textAlign="center">{page.name}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: "block", md: "none" } }}
+            >
+              {pages.map((page) => (
+                <MenuItem
+                  key={page.link}
+                  onClick={() => {
+                    navigate(page.link);
+                  }}
+                >
+                  <Typography textAlign="center">{page.name}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
 
-            <Box
+            {/* <Box
               sx={{
                 flexGrow: 1,
                 display: { xs: "none", md: "flex" },
@@ -426,32 +433,26 @@ const HeaderBar = () => {
                   {page.name}
                 </Button>
               ))}
-            </Box>
+            </Box> */}
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                sx={{ display: { xs: "none", md: "flex" } }}
+                // sx={{ display: { xs: "none", md: "flex" } }}
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
 
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-              }}
-            >
-              <Tooltip title="My Account">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <AccountBoxIcon />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
+            <Tooltip title="My Account">
+              <IconButton onClick={handleOpenUserMenu}>
+                <AccountBoxIcon />
+              </IconButton>
+            </Tooltip>
+
+            {/* <Menu
+                // sx={{ mt: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -471,27 +472,24 @@ const HeaderBar = () => {
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
-              </Menu>
+              </Menu> */}
 
-              <Tooltip title="View Shopping Cart">
-                <IconButton
-                  onClick={toggleDrawer(true)}
-                  sx={{ p: 0, ml: "1.5rem", mr: "0.5rem" }}
-                >
-                  <ShoppingCartIcon />
-                </IconButton>
-              </Tooltip>
+            <Tooltip title="View Shopping Cart">
+              <IconButton onClick={toggleDrawer(true)} sx={{ mr: "0.5rem" }}>
+                <ShoppingCartIcon />
+              </IconButton>
+            </Tooltip>
 
-              <Drawer
-                anchor="right"
-                open={isViewCartOpen}
-                onClose={toggleDrawer(false)}
-              >
-                {list()}
-              </Drawer>
-            </Box>
-          </Toolbar>
-        </Container>
+            <Drawer
+              anchor="right"
+              open={isViewCartOpen}
+              onClose={toggleDrawer(false)}
+            >
+              {list()}
+            </Drawer>
+          </Stack>
+        </Toolbar>
+        {/* </Container> */}
 
         {/* <Container sx={{ display: { xs: "flex", md: "none" } }}>
           <Link to="/">

@@ -47,7 +47,7 @@ const HomePage = () => {
 
         <Typography
           style={{ color: "#b3707c", fontWeight: 300 }}
-          sx={{ fontSize: "50px", mt: "3rem", mb: "0.5rem" }}
+          sx={{ fontSize: "40px", mt: "3rem", mb: "0.5rem" }}
         >
           Fall in love at first bite
         </Typography>

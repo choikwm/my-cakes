@@ -26,7 +26,7 @@ const ProductItem = (props) => {
       <Typography sx={{ mt: "1rem", fontSize: "18px" }}>{name}</Typography>
 
       <Typography sx={{ fontSize: "14px" }}>
-        From {variant_groups[0].options[0].price.formatted_with_symbol}
+        From HK{variant_groups[0].options[0].price.formatted_with_symbol}
       </Typography>
     </Box>
   );

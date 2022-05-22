@@ -67,6 +67,8 @@ const ProductDetails = () => {
     });
   };
 
+  const deliveryDetails = "Free door-to-door delivery for order over HK$500";
+
   return (
     <>
       <Container maxWidth="xl" sx={{ mt: "3rem", mb: "3rem" }}>
@@ -102,7 +104,7 @@ const ProductDetails = () => {
               variant="h9"
               sx={{ fontSize: "14px", mt: "0.5rem", mb: "0.5rem" }}
             >
-              Price: {selectedPrice}
+              Price: HK{selectedPrice}
             </Typography>
 
             <Stack direction="row">
@@ -177,6 +179,14 @@ const ProductDetails = () => {
               }}
             >
               Delivery Details
+            </Typography>
+
+            <Typography
+              sx={{
+                fontSize: "15px",
+              }}
+            >
+              {deliveryDetails}
             </Typography>
           </Box>
         </Box>

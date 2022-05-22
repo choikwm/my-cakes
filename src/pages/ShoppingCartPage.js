@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -17,6 +18,8 @@ import commerce from "../lib/commerce";
 import ProductItem from "../components/ProductItem";
 
 const ShoppingCartPage = () => {
+  let navigate = useNavigate();
+
   const [cart, setCart] = useState({});
 
   useEffect(() => {
@@ -74,42 +77,54 @@ const ShoppingCartPage = () => {
             justifyContent: "center",
           }}
         >
-          <Grid item xs={6}>
+          <Grid item sm={6} display={{ xs: "none", sm: "flex" }}>
             Product
           </Grid>
-          <Grid item xs={2}>
+          <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
             Price
           </Grid>
-          <Grid item xs={2}>
+          <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
             Quanity
           </Grid>
-          <Grid item xs={2}>
-            Total
+          <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
+            Sub Total
           </Grid>
+
           {cart.line_items?.map((item) => {
-            const { image, price, quantity, line_total } = item;
+            const {
+              image,
+              product_name,
+              selected_options,
+              price,
+              quantity,
+              line_total,
+            } = item;
             console.log("mapping item", item);
             return (
               <>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <img
                     src={image.url}
                     alt="product photo"
                     width="100px"
                     height="100px"
                   />
-                </Grid>
-                <Grid item xs={2}>
+                  <Typography variant="body2">{product_name}</Typography>
                   <Typography variant="body2">
-                    {price.formatted_with_symbol}
+                    Size: {selected_options[0].option_name}
                   </Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={12} sm={2}>
+                  <Typography variant="body2">
+                    HK{price.formatted_with_symbol}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={2}>
                   <Typography variant="body2">{quantity}</Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={12} sm={2}>
                   <Typography variant="body2">
-                    {line_total.formatted_with_symbol}
+                    HK{line_total.formatted_with_symbol}
                   </Typography>
                 </Grid>
               </>
@@ -121,8 +136,25 @@ const ShoppingCartPage = () => {
             sx={{ display: "flex", justifyContent: "flex-end" }}
           >
             <Typography variant="body2">
-              {`Total: ${cart.subtotal?.formatted_with_symbol || ""}`}
+              {`Total: HK${cart.subtotal?.formatted_with_symbol || ""}`}
             </Typography>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
+            <Button
+              variant="contained"
+              // onClick={handleAddCart}
+              onClick={() => {
+                navigate("/checkout");
+              }}
+              sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
+            >
+              Check Out
+            </Button>
           </Grid>
         </Grid>
 

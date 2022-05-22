@@ -12,6 +12,7 @@ import ContactUsPage from "./pages/ContactUsPage";
 import PromotionPage from "./pages/PromotionPage";
 import ProductPage from "./pages/ProductPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
+import CheckOutPage from "./pages/CheckOutPage";
 
 import HeaderBar from "./components/HeaderBar";
 import FooterBar from "./components/FooterBar";
@@ -39,7 +40,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="aboutus" element={<AboutUsPage />} />
           <Route path="contactus" element={<ContactUsPage />} />
-          <Route path="promotions" element={<PromotionPage />} />
+          <Route path="checkout" element={<CheckOutPage />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="products/:id" element={<ProductDetails />} />
           <Route path="shoppingcart" element={<ShoppingCartPage />} />

@@ -13,19 +13,6 @@ import visaCard from "../images/creditCardsImages/visaCard.png";
 import masterCard from "../images/creditCardsImages/masterCard.png";
 import aeCard from "../images/creditCardsImages/aeCard.png";
 
-// // import AppBar from "@mui/material/AppBar";
-// // import Toolbar from "@mui/material/Toolbar";
-// import IconButton from "@mui/material/IconButton";
-// import Menu from "@mui/material/Menu";
-// import MenuIcon from "@mui/icons-material/Menu";
-// import Container from "@mui/material/Container";
-// import Button from "@mui/material/Button";
-// import Tooltip from "@mui/material/Tooltip";
-// import MenuItem from "@mui/material/MenuItem";
-// // import { styled, alpha } from "@mui/material/styles";
-// import SearchIcon from "@mui/icons-material/Search";
-// import InputBase from "@mui/material/InputBase";
-
 const FooterBar = () => {
   const [emailNewsLetter, setEmailNewsLetter] = useState("");
   return (
@@ -129,7 +116,7 @@ const FooterBar = () => {
         </Container>
       </Box>
 
-      <Box sx={{ height: 100, backgroundColor: "#d9bac2" }}>
+      <Box sx={{ height: 120, backgroundColor: "#d9bac2" }}>
         <Container
           sx={{
             display: "flex",
