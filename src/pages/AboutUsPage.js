@@ -17,9 +17,6 @@ const AboutUsPage = () => {
           justifyContent: "center",
           alignItems: "center",
           // height: "100vh",
-
-          // mt: "4rem",
-          // ml: "1rem",
           my: "2rem",
         }}
       >
@@ -48,6 +45,7 @@ const AboutUsPage = () => {
 
           <Typography
             // style={{ color: "#948487", fontWeight: 300 }}
+            align="justify"
             sx={{
               color: "#948487",
               fontWeight: 300,

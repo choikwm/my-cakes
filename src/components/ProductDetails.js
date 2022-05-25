@@ -3,6 +3,7 @@ import { Container, Stack } from "@mui/material";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -30,6 +31,8 @@ const ProductDetails = () => {
   );
 
   const [quantity, setQuantity] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [addCartSuccess, setAddCartSuccess] = useState(false);
 
   let productDescription = description.slice(3, description.length - 5);
 
@@ -61,10 +64,17 @@ const ProductDetails = () => {
   };
 
   const handleAddCart = () => {
-    commerce.cart.add(productId, quantity, {
-      [variant_groups[0].id]: selectedSize,
-      // ... any other group -> options here
-    });
+    setLoading(true);
+    commerce.cart
+      .add(productId, quantity, {
+        [variant_groups[0].id]: selectedSize,
+        // ... any other group -> options here
+      })
+      .then((res) => {
+        console.log("res add to cart", res);
+        setLoading(false);
+        setAddCartSuccess(true);
+      });
   };
 
   const deliveryDetails = "Free door-to-door delivery for order over HK$500";
@@ -141,16 +151,18 @@ const ProductDetails = () => {
               </Select>
             </Stack>
 
-            <Button
+            <LoadingButton
               variant="contained"
               onClick={handleAddCart}
+              loading={loading}
+              // color={addCartSuccess ? "success" : "primary"}
               // onClick={() => {
               //   navigate("/shoppingcart");
               // }}
               sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
             >
-              Add to Cart
-            </Button>
+              {addCartSuccess ? "Added successfully" : "Add to Cart"}
+            </LoadingButton>
 
             <Box sx={{ flexDirection: "column", justifyContent: "center" }}>
               <Typography

@@ -8,6 +8,7 @@ import { common } from "@mui/material/colors";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 import visaCard from "../images/creditCardsImages/visaCard.png";
 import masterCard from "../images/creditCardsImages/masterCard.png";
@@ -54,7 +55,6 @@ const FooterBar = () => {
           </Typography>
 
           <TextField
-            fullWidth
             style={{ color: "#cfcacc" }}
             inputProps={{ style: { fontSize: 12 } }} // font size of input text
             InputLabelProps={{ style: { fontSize: 12 } }} // font size of input label
@@ -64,9 +64,9 @@ const FooterBar = () => {
               setEmailNewsLetter(event.target.value);
             }}
             size="small"
-            sx={{ mb: "1rem", ml: "1rem", mr: "1rem" }}
+            sx={{ width: "300px", mb: "1rem", ml: "1rem", mr: "1rem" }}
           />
-
+          <br></br>
           <Button
             size="small"
             // style={{ color: "#9e8a6f" }}
@@ -111,7 +111,8 @@ const FooterBar = () => {
             }}
           >
             <FacebookIcon sx={{ mr: "1rem" }}></FacebookIcon>
-            <InstagramIcon />
+            <InstagramIcon sx={{ mr: "1rem" }}></InstagramIcon>
+            <YouTubeIcon />
           </Typography>
         </Container>
       </Box>
@@ -157,7 +158,7 @@ const FooterBar = () => {
                 mr: "1rem",
               }}
             >
-              Copyright © 2022 myCAKES HONG KONG ONLINE SHOP
+              Copyright © 2022 myCAKES HONG KONG
             </Typography>
           </Box>
         </Container>

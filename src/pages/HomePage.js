@@ -11,6 +11,8 @@ import { Typography } from "@mui/material";
 
 import Carousel from "nuka-carousel";
 
+import background1 from "../images/backgroundImages/background1.jpeg";
+
 const images = [coverPhoto, coverPhoto2, coverPhoto3, coverPhoto4];
 
 const HomePage = () => {
@@ -47,13 +49,14 @@ const HomePage = () => {
 
         <Typography
           style={{ color: "#b3707c", fontWeight: 300 }}
-          sx={{ fontSize: "40px", mt: "3rem", mb: "0.5rem" }}
+          sx={{ fontSize: "45px", mt: "3rem", mb: "0.5rem" }}
         >
           Fall in love at first bite
         </Typography>
 
         <Typography
           style={{ color: "#856d73", fontWeight: 300 }}
+          align="justify"
           sx={{
             fontSize: "14px",
             mt: "1rem",
@@ -67,6 +70,10 @@ const HomePage = () => {
           locally-sourced ingredients. Specialising in cakes, we’re a home
           bakery catering to all occasions throughout Hong Kong.
         </Typography>
+
+        <Container maxWidth="lg">
+          <img src={background1} width="100%" height="100%" />
+        </Container>
       </Container>
     </>
   );

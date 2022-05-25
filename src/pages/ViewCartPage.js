@@ -16,8 +16,11 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import commerce from "../lib/commerce";
 import ProductItem from "../components/ProductItem";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const ShoppingCartPage = () => {
+const ViewCartPage = () => {
   let navigate = useNavigate();
 
   const [cart, setCart] = useState({});
@@ -45,6 +48,17 @@ const ShoppingCartPage = () => {
   // const cartItems = cart.map;
 
   // const [itemCount, setItemCount] = useState(1);
+  const handleQtyChange = (id) => (event) => {
+    // console.log("id, event", id, event.target.value);
+    commerce.cart.update(id, { quantity: event.target.value }).then((res) => {
+      console.log("res", res);
+      setCart(res.cart);
+    });
+  };
+
+  const handleRemoveClick = (id) => (event) => {
+    commerce.cart.remove(id).then((res) => setCart(res.cart));
+  };
 
   return (
     <>
@@ -98,6 +112,7 @@ const ShoppingCartPage = () => {
               price,
               quantity,
               line_total,
+              id,
             } = item;
             console.log("mapping item", item);
             return (
@@ -120,7 +135,20 @@ const ShoppingCartPage = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={2}>
-                  <Typography variant="body2">{quantity}</Typography>
+                  <Stack direction="column" alignItems="flex-start">
+                    <Select
+                      sx={{ width: 70, height: 40 }}
+                      value={quantity}
+                      onChange={handleQtyChange(id)}
+                    >
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((qty) => (
+                        <MenuItem value={qty}>{qty}</MenuItem>
+                      ))}
+                    </Select>
+                    <Button size="small" onClick={handleRemoveClick(id)}>
+                      Remove
+                    </Button>
+                  </Stack>
                 </Grid>
                 <Grid item xs={12} sm={2}>
                   <Typography variant="body2">
@@ -193,4 +221,4 @@ const ShoppingCartPage = () => {
   );
 };
 
-export default ShoppingCartPage;
+export default ViewCartPage;

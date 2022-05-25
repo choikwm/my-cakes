@@ -11,8 +11,9 @@ import AboutUsPage from "./pages/AboutUsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import PromotionPage from "./pages/PromotionPage";
 import ProductPage from "./pages/ProductPage";
-import ShoppingCartPage from "./pages/ShoppingCartPage";
+import ViewCartPage from "./pages/ViewCartPage";
 import CheckOutPage from "./pages/CheckOutPage";
+import PaymentPage from "./pages/PaymentPage";
 
 import HeaderBar from "./components/HeaderBar";
 import FooterBar from "./components/FooterBar";
@@ -43,7 +44,8 @@ function App() {
           <Route path="checkout" element={<CheckOutPage />} />
           <Route path="products" element={<ProductPage />} />
           <Route path="products/:id" element={<ProductDetails />} />
-          <Route path="shoppingcart" element={<ShoppingCartPage />} />
+          <Route path="viewcart" element={<ViewCartPage />} />
+          <Route path="payment" element={<PaymentPage />} />
         </Route>
       </Routes>
     </ThemeProvider>

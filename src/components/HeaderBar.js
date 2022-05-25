@@ -54,12 +54,16 @@ const HeaderBar = () => {
       link: "/contactus",
     },
     {
-      name: "Shopping Cart",
-      link: "/shoppingcart",
+      name: "Cart",
+      link: "/viewcart",
     },
     {
-      name: "Check Out",
+      name: "Checkout",
       link: "/checkout",
+    },
+    {
+      name: "Payment",
+      link: "/payment",
     },
   ];
   const settings = ["Sign Up", "Sign In"];
