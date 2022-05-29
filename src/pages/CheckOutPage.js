@@ -11,21 +11,45 @@ import { Stack } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import PaymentPage from "./PaymentPage";
 // import ShippingInformation from "../components/ShippingInformation";
 
 const CheckOutPage = () => {
+  const [receiver, setReceiver] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [district, setDistrict] = useState("");
+  const [region, setRegion] = useState("");
+  const [receiverError, setReceiverError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [mobileError, setMobileError] = useState(false);
+  const [addressError, setAddressError] = useState(false);
+  const [districtError, setDistrictError] = useState(false);
+  const [regionError, setRegionError] = useState(false);
+  const [activeStep, setActiveStep] = useState(1);
+  const [skipped, setSkipped] = useState(new Set());
+
   let navigate = useNavigate();
+  let location = useLocation();
+  const checkoutToken = location?.state?.chekoutToken || "";
+
+  //   location: {
+  //       state: {
+  //         chekoutToken: "fsfsdfdsf"
+  //       }
+  //   }
+
+  console.log("checkoutToken", checkoutToken);
 
   const steps = ["Basket", "Shipping Information", "Payment"];
 
   //   const stepOne = "Basket"
   //   const stepTwo = "Shipping Information"
   //   const stepThree = "Payment"
-
-  const [activeStep, setActiveStep] = useState(1);
-  const [skipped, setSkipped] = useState(new Set());
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -71,18 +95,6 @@ const CheckOutPage = () => {
 
   //   const [activeStep, setActiveStep] = useState(0);
 
-  // BELOW is for the shipping info
-  const [receiver, setReceiver] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [address, setAddress] = useState("");
-  const [district, setDistrict] = useState("");
-  const [receiverError, setReceiverError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [mobileError, setMobileError] = useState(false);
-  const [addressError, setAddressError] = useState(false);
-  const [districtError, setDistrictError] = useState(false);
-
   //   const checkEmptyShippingInfo = () => {
   //     if (receiver === "") {
   //       setReceiverError(true);
@@ -94,6 +106,30 @@ const CheckOutPage = () => {
   //     if (receiver !== "" && email !== "") {
   //       //   handleClickToPayment();
   //     }
+
+  const handleNextClick = () => {
+    setActiveStep(2);
+
+    // navigate("/payment", { state: checkoutData });
+  };
+
+  const handleClickPayment = (paymentData) => {
+    console.log("paymentData", paymentData);
+    const checkoutData = {
+      customer: {
+        email,
+        phone: mobile,
+      },
+      shipping: {
+        name: receiver,
+        street: address,
+        town_city: district,
+        county_state: region,
+      },
+      ...paymentData,
+    };
+    console.log("checkoutData", checkoutData);
+  };
 
   return (
     <>
@@ -113,35 +149,29 @@ const CheckOutPage = () => {
               }
               return (
                 <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps}>{label}</StepLabel>
+                  <StepLabel {...labelProps}>
+                    {label === "Basket" ? (
+                      <Button
+                        onClick={() => {
+                          console.log("clicked");
+                          navigate("/viewcart");
+                        }}
+                      >
+                        {label}
+                      </Button>
+                    ) : (
+                      label
+                    )}
+                  </StepLabel>
                 </Step>
               );
             })}
           </Stepper>
-          {activeStep === steps.length ? (
-            <>
-              <Typography sx={{ mt: 2, mb: 1 }}>
-                Thank you for you&apos;re payment. The Order has been confirmed!
-              </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                <Box sx={{ flex: "1 1 auto" }} />
-
-                <Button
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
-                  Back to homepage
-                </Button>
-
-                {/* <Button onClick={handleReset}>Reset</Button> */}
-              </Box>
-            </>
-          ) : (
+          {activeStep === 1 ? (
             <>
               {/* <Typography sx={{ mt: 2, mb: 1 }}>
-                Step {activeStep + 1}
-              </Typography> */}
+                            Step {activeStep + 1}
+                          </Typography> */}
 
               <Container
                 maxWidth="md"
@@ -266,7 +296,18 @@ const CheckOutPage = () => {
                   />
 
                   <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                    <Select size="small" label="Region">
+                    <InputLabel id="region">Region</InputLabel>
+                    <Select
+                      size="small"
+                      value={region}
+                      onChange={(event) => {
+                        if (regionError) {
+                          setRegionError(false);
+                        }
+                        setRegion(event.target.value);
+                      }}
+                      error={regionError}
+                    >
                       <MenuItem value={10}>Kowloon</MenuItem>
                       <MenuItem value={20}>Hong Kong Island</MenuItem>
                       <MenuItem value={30}>New Territories</MenuItem>
@@ -295,23 +336,39 @@ const CheckOutPage = () => {
                   //   </Button>
                 }
 
-                <Button
-                  onClick={() => {
-                    navigate("/payment");
-                  }}
-                >
+                <Button onClick={handleNextClick}>
                   {activeStep === steps.length - 1
                     ? "Continue to payment"
                     : "Continue to shipping"}
                 </Button>
 
                 {/* <Button onClick={handleNext}>
-                  {activeStep === steps.length - 1
-                    ? "Continue to payment"
-                    : "Continue to shipping"}
-                </Button> */}
+                              {activeStep === steps.length - 1
+                                ? "Continue to payment"
+                                : "Continue to shipping"}
+                            </Button> */}
               </Box>
             </>
+          ) : (
+            // <>
+            //   <Typography sx={{ mt: 2, mb: 1 }}>
+            //     Thank you for you&apos;re payment. The Order has been confirmed!
+            //   </Typography>
+            //   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            //     <Box sx={{ flex: "1 1 auto" }} />
+
+            //     <Button
+            //       onClick={() => {
+            //         navigate("/");
+            //       }}
+            //     >
+            //       Back to homepage
+            //     </Button>
+
+            //     {/* <Button onClick={handleReset}>Reset</Button> */}
+            //   </Box>
+            // </>
+            <PaymentPage handleClickPayment={handleClickPayment} />
           )}
         </Box>
       </Container>

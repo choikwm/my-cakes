@@ -19,11 +19,13 @@ import ProductItem from "../components/ProductItem";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ViewCartPage = () => {
   let navigate = useNavigate();
 
   const [cart, setCart] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     commerce.cart
@@ -49,93 +51,110 @@ const ViewCartPage = () => {
 
   // const [itemCount, setItemCount] = useState(1);
   const handleQtyChange = (id) => (event) => {
+    setLoading(true);
     // console.log("id, event", id, event.target.value);
     commerce.cart.update(id, { quantity: event.target.value }).then((res) => {
       console.log("res", res);
       setCart(res.cart);
+      setLoading(false);
     });
   };
+
+  console.log("cart", cart);
 
   const handleRemoveClick = (id) => (event) => {
     commerce.cart.remove(id).then((res) => setCart(res.cart));
   };
 
+  const handleCheckOut = () => {
+    commerce.checkout
+      .generateTokenFrom("cart", commerce.cart.id())
+      .then((response) => {
+        console.log(response.id);
+        const token = {
+          chekoutToken: response.id,
+        };
+        navigate("/checkout", { state: token });
+      });
+  };
+
   return (
-    <>
-      <Container
-        maxWidth="md"
+    <Container
+      maxWidth="md"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        mt: "1.5rem",
+        mb: "1.5rem",
+      }}
+    >
+      <Typography
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          mt: "1.5rem",
-          mb: "1.5rem",
+          color: "#bd9191",
+          fontSize: "30px",
         }}
       >
-        <Typography
-          sx={{
-            color: "#bd9191",
-            fontSize: "30px",
-          }}
-        >
-          My Cart
-        </Typography>
+        My Cart
+      </Typography>
 
-        <Grid
-          container
-          spacing={1}
-          sx={{
-            my: "0.5rem",
-            border: "1px solid #fff",
-            justifyContent: "center",
-          }}
-        >
-          <Grid item sm={6} display={{ xs: "none", sm: "flex" }}>
-            Product
-          </Grid>
-          <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
-            Price
-          </Grid>
-          <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
-            Quanity
-          </Grid>
-          <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
-            Sub Total
-          </Grid>
+      <Grid
+        container
+        spacing={1}
+        sx={{
+          my: "0.5rem",
+          border: "1px solid #fff",
+          justifyContent: "center",
+        }}
+      >
+        <Grid item sm={6} display={{ xs: "none", sm: "flex" }}>
+          Product
+        </Grid>
+        <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
+          Price
+        </Grid>
+        <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
+          Quanity
+        </Grid>
+        <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
+          Sub Total
+        </Grid>
 
-          {cart.line_items?.map((item) => {
-            const {
-              image,
-              product_name,
-              selected_options,
-              price,
-              quantity,
-              line_total,
-              id,
-            } = item;
-            console.log("mapping item", item);
-            return (
-              <>
-                <Grid item xs={12} sm={6}>
-                  <img
-                    src={image.url}
-                    alt="product photo"
-                    width="100px"
-                    height="100px"
-                  />
-                  <Typography variant="body2">{product_name}</Typography>
-                  <Typography variant="body2">
-                    Size: {selected_options[0].option_name}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                  <Typography variant="body2">
-                    HK{price.formatted_with_symbol}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                  <Stack direction="column" alignItems="flex-start">
+        {cart.line_items?.map((item) => {
+          const {
+            image,
+            product_name,
+            selected_options,
+            price,
+            quantity,
+            line_total,
+            id,
+          } = item;
+          // console.log("mapping item", item);
+          return (
+            <>
+              <Grid item xs={12} sm={6}>
+                <img
+                  src={image.url}
+                  alt="product photo"
+                  width="100px"
+                  height="100px"
+                />
+                <Typography variant="body2">{product_name}</Typography>
+                <Typography variant="body2">
+                  Size: {selected_options[0].option_name}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <Typography variant="body2">
+                  HK{price.formatted_with_symbol}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <Stack direction="column" alignItems="flex-start">
+                  {loading && <CircularProgress />}
+                  {loading === false && (
                     <Select
                       sx={{ width: 70, height: 40 }}
                       value={quantity}
@@ -145,54 +164,45 @@ const ViewCartPage = () => {
                         <MenuItem value={qty}>{qty}</MenuItem>
                       ))}
                     </Select>
-                    <Button size="small" onClick={handleRemoveClick(id)}>
-                      Remove
-                    </Button>
-                  </Stack>
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                  <Typography variant="body2">
-                    HK{line_total.formatted_with_symbol}
-                  </Typography>
-                </Grid>
-              </>
-            );
-          })}
-          <Grid
-            item
-            xs={12}
-            sx={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <Typography variant="body2">
-              {`Total: HK${cart.subtotal?.formatted_with_symbol || ""}`}
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            sx={{ display: "flex", justifyContent: "flex-end" }}
-          >
-            <Button
-              variant="contained"
-              // onClick={handleAddCart}
-              onClick={() => {
-                navigate("/checkout");
-              }}
-              sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
-            >
-              Check Out
-            </Button>
-          </Grid>
+                  )}
+                  <Button size="small" onClick={handleRemoveClick(id)}>
+                    Remove
+                  </Button>
+                </Stack>
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <Typography variant="body2">
+                  HK{line_total.formatted_with_symbol}
+                </Typography>
+              </Grid>
+            </>
+          );
+        })}
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Typography variant="body2">
+            {`Total: HK${cart.subtotal?.formatted_with_symbol || ""}`}
+          </Typography>
         </Grid>
 
-        {/* {cart.map((item) => (
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            variant="contained"
+            // onClick={handleAddCart}
+            onClick={handleCheckOut}
+            sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
+          >
+            Check Out
+          </Button>
+        </Grid>
+      </Grid>
+
+      {/* {cart.map((item) => (
           <ProductItem key={item.id} data={item} />
         ))} */}
 
-        {/* <cartItems /> */}
+      {/* <cartItems /> */}
 
-        {/* <Box sx={{ mt: "1rem", p: 5, border: "1px dashed white" }}>
+      {/* <Box sx={{ mt: "1rem", p: 5, border: "1px dashed white" }}>
           <Stack direction="row">
             <Badge badgeContent={itemCount}>
               <ShoppingCartIcon />
@@ -216,8 +226,7 @@ const ViewCartPage = () => {
             </ButtonGroup>
           </Stack>
         </Box> */}
-      </Container>
-    </>
+    </Container>
   );
 };
 
