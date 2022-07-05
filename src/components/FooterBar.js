@@ -20,7 +20,8 @@ const FooterBar = () => {
     <>
       <Box
         sx={{
-          backgroundColor: "#a35b62",
+          backgroundColor: "#dce0e3",
+          //a35b62
           height: 200,
           display: "flex",
           flexDirection: "column",
@@ -29,7 +30,7 @@ const FooterBar = () => {
       >
         <Container>
           <Typography
-            style={{ color: "#f5f2f3" }}
+            style={{ color: "#5fc2d4" }}
             sx={{
               fontSize: "23px",
               mt: "2rem",
@@ -42,7 +43,7 @@ const FooterBar = () => {
           </Typography>
 
           <Typography
-            style={{ color: "#cfcacc" }}
+            style={{ color: "#799094" }}
             sx={{
               fontSize: "12px",
               mt: "0.5rem",
@@ -69,8 +70,8 @@ const FooterBar = () => {
           <br></br>
           <Button
             size="small"
-            // style={{ color: "#9e8a6f" }}
-            sx={{ mb: "2rem", ml: "1rem", mr: "1rem", color: common.white }}
+            style={{ color: "#97b5c2" }}
+            sx={{ mb: "2rem", ml: "1rem", mr: "1rem" }}
           >
             Subscribe
           </Button>
@@ -79,7 +80,7 @@ const FooterBar = () => {
 
       <Box
         sx={{
-          backgroundColor: "#b08994",
+          backgroundColor: "#a5c0cc",
           height: 140,
           display: "flex",
           flexDirection: "column",
@@ -110,14 +111,20 @@ const FooterBar = () => {
               mr: "1rem",
             }}
           >
-            <FacebookIcon sx={{ mr: "1rem" }}></FacebookIcon>
-            <InstagramIcon sx={{ mr: "1rem" }}></InstagramIcon>
-            <YouTubeIcon />
+            <FacebookIcon
+              style={{ color: "#ffffff" }}
+              sx={{ mr: "1rem" }}
+            ></FacebookIcon>
+            <InstagramIcon
+              style={{ color: "#ffffff" }}
+              sx={{ mr: "1rem" }}
+            ></InstagramIcon>
+            <YouTubeIcon style={{ color: "#ffffff" }}> </YouTubeIcon>
           </Typography>
         </Container>
       </Box>
 
-      <Box sx={{ height: 120, backgroundColor: "#d9bac2" }}>
+      <Box sx={{ height: 120, backgroundColor: "#e6b8aa" }}>
         <Container
           sx={{
             display: "flex",
@@ -149,7 +156,7 @@ const FooterBar = () => {
             }}
           >
             <Typography
-              style={{ color: "#857176" }}
+              style={{ color: "#8c8887" }}
               sx={{
                 fontSize: "12px",
                 mt: "1rem",

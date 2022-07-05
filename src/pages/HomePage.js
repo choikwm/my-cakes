@@ -1,5 +1,7 @@
 import React from "react";
 
+import FullPageScoll from "../components/FullPageScoll";
+
 import coverPhoto from "../images/homePageImages/coverPhoto.jpeg";
 import coverPhoto2 from "../images/homePageImages/coverPhoto2.jpeg";
 import coverPhoto3 from "../images/homePageImages/coverPhoto3.jpeg";
@@ -32,6 +34,13 @@ const HomePage = () => {
           autoplay
           wrapAround
           slidesToShow={1}
+          defaultControlsConfig={{
+            nextButtonText: ">",
+            prevButtonText: "<",
+            // pagingDotsStyle: {
+            //   // fill: "white",
+            // },
+          }}
           style={{
             maxWidth: "700px",
             width: "100%",
@@ -48,7 +57,7 @@ const HomePage = () => {
         </Carousel>
 
         <Typography
-          style={{ color: "#b3707c", fontWeight: 300 }}
+          style={{ color: "#87c4d6", fontWeight: 300 }}
           sx={{ fontSize: "45px", mt: "3rem", mb: "0.5rem" }}
         >
           Fall in love at first bite
@@ -71,7 +80,7 @@ const HomePage = () => {
           bakery catering to all occasions throughout Hong Kong.
         </Typography>
 
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ mb: "5rem" }}>
           <img src={background1} width="100%" height="100%" />
         </Container>
       </Container>

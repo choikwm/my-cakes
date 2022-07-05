@@ -25,7 +25,6 @@ const AboutUsPage = () => {
         {/* BOX IN FULL VIEW */}
         <Box
           sx={{
-            // flexGrow: 1,
             // display: { xs: "none", md: "flex" },
             flexDirection: "column",
             mt: { xs: "1rem", md: 0 },
@@ -35,7 +34,7 @@ const AboutUsPage = () => {
         >
           <Typography
             sx={{
-              color: "#b07282",
+              color: "#87c4d6",
               fontSize: "40px",
               mb: "2rem",
             }}
@@ -44,7 +43,6 @@ const AboutUsPage = () => {
           </Typography>
 
           <Typography
-            // style={{ color: "#948487", fontWeight: 300 }}
             align="justify"
             sx={{
               color: "#948487",

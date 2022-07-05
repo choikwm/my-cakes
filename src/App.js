@@ -14,6 +14,7 @@ import ProductPage from "./pages/ProductPage";
 import ViewCartPage from "./pages/ViewCartPage";
 import CheckOutPage from "./pages/CheckOutPage";
 import PaymentPage from "./pages/PaymentPage";
+import FullViewPage from "./pages/FullViewPage";
 
 import HeaderBar from "./components/HeaderBar";
 import FooterBar from "./components/FooterBar";
@@ -46,6 +47,7 @@ function App() {
           <Route path="products/:id" element={<ProductDetails />} />
           <Route path="viewcart" element={<ViewCartPage />} />
           <Route path="payment" element={<PaymentPage />} />
+          <Route path="fullview" element={<FullViewPage />} />
         </Route>
       </Routes>
     </ThemeProvider>

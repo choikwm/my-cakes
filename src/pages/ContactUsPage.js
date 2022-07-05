@@ -30,10 +30,10 @@ const ContactUsPage = () => {
       >
         <Typography
           sx={{
-            color: "#bd9191",
+            color: "#99bdc4",
             fontSize: "30px",
             ml: "1rem",
-            mt: "0.6rem",
+            mt: "2rem",
             mb: "1.5rem",
           }}
         >
@@ -66,7 +66,7 @@ const ContactUsPage = () => {
             color: "#bd9191",
             fontSize: "30px",
             ml: "1rem",
-            mt: "2rem",
+            mt: "7rem",
             mb: "1.5rem",
           }}
         >
@@ -85,10 +85,10 @@ const ContactUsPage = () => {
 
         <Typography
           sx={{
-            color: "#bd9191",
+            color: "#99bdc4",
             fontSize: "30px",
             ml: "1rem",
-            mt: "2rem",
+            mt: "7rem",
             mb: "0.5rem",
           }}
         >

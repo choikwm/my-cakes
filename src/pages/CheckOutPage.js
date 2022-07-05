@@ -12,6 +12,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import commerce from "../lib/commerce";
+import Grid from "@mui/material/Grid";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import PaymentPage from "./PaymentPage";
@@ -23,7 +25,7 @@ const CheckOutPage = () => {
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("");
-  const [region, setRegion] = useState("");
+  const [region, setRegion] = useState("Kowloon");
   const [receiverError, setReceiverError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [mobileError, setMobileError] = useState(false);
@@ -36,12 +38,6 @@ const CheckOutPage = () => {
   let navigate = useNavigate();
   let location = useLocation();
   const checkoutToken = location?.state?.chekoutToken || "";
-
-  //   location: {
-  //       state: {
-  //         chekoutToken: "fsfsdfdsf"
-  //       }
-  //   }
 
   console.log("checkoutToken", checkoutToken);
 
@@ -59,61 +55,34 @@ const CheckOutPage = () => {
     return skipped.has(step);
   };
 
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
+  const handleClickToPayment = () => {
+    if (email === "") {
+      setEmailError(true);
     }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+    if (receiver === "") {
+      setReceiverError(true);
+    }
+    if (mobile === "") {
+      setMobileError(true);
+    }
+    if (address === "") {
+      setAddressError(true);
+    }
+    if (district === "") {
+      setDistrictError(true);
+    }
+    if (
+      email !== "" &&
+      receiver !== "" &&
+      mobile !== "" &&
+      address !== "" &&
+      district !== ""
+    ) {
+      setActiveStep(2);
+    }
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  //   const handleSkip = () => {
-  //     if (!isStepOptional(activeStep)) {
-  //       // You probably want to guard against something like this,
-  //       // it should never occur unless someone's actively trying to break something.
-  //       throw new Error("You can't skip a step that isn't optional.");
-  //     }
-
-  //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //     setSkipped((prevSkipped) => {
-  //       const newSkipped = new Set(prevSkipped.values());
-  //       newSkipped.add(activeStep);
-  //       return newSkipped;
-  //     });
-  //   };
-
-  //   const handleReset = () => {
-  //     setActiveStep(0);
-  //   };
-
-  //   const [activeStep, setActiveStep] = useState(0);
-
-  //   const checkEmptyShippingInfo = () => {
-  //     if (receiver === "") {
-  //       setReceiverError(true);
-  //     }
-  //     if (email === "") {
-  //       setEmailError(true);
-  //     }
-
-  //     if (receiver !== "" && email !== "") {
-  //       //   handleClickToPayment();
-  //     }
-
-  const handleNextClick = () => {
-    setActiveStep(2);
-
-    // navigate("/payment", { state: checkoutData });
-  };
-
-  const handleClickPayment = (paymentData) => {
+  const handlePayment = (paymentData) => {
     console.log("paymentData", paymentData);
     const checkoutData = {
       customer: {
@@ -129,6 +98,10 @@ const CheckOutPage = () => {
       ...paymentData,
     };
     console.log("checkoutData", checkoutData);
+    console.log("checkoutToken", checkoutToken);
+    commerce.checkout.capture(checkoutToken, checkoutData).then((res) => {
+      console.log("res", res);
+    });
   };
 
   return (
@@ -139,11 +112,7 @@ const CheckOutPage = () => {
             {steps.map((label, index) => {
               const stepProps = {};
               const labelProps = {};
-              //   if (isStepOptional(index)) {
-              //     labelProps.optional = (
-              //       <Typography variant="caption">Optional</Typography>
-              //     );
-              //   }
+
               if (isStepSkipped(index)) {
                 stepProps.completed = false;
               }
@@ -169,10 +138,6 @@ const CheckOutPage = () => {
           </Stepper>
           {activeStep === 1 ? (
             <>
-              {/* <Typography sx={{ mt: 2, mb: 1 }}>
-                            Step {activeStep + 1}
-                          </Typography> */}
-
               <Container
                 maxWidth="md"
                 sx={{
@@ -186,7 +151,7 @@ const CheckOutPage = () => {
               >
                 <Typography
                   sx={{
-                    color: "#bd9191",
+                    color: "#89cbd9",
                     fontSize: "20px",
                   }}
                 >
@@ -295,22 +260,24 @@ const CheckOutPage = () => {
                     }}
                   />
 
-                  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                  <FormControl sx={{ mt: "1rem", minWidth: 175 }}>
                     <InputLabel id="region">Region</InputLabel>
                     <Select
-                      size="small"
+                      sx={{ ml: "0.5rem", height: 35, fontSize: "13px" }}
+                      // size="small"
+                      label="Region"
                       value={region}
                       onChange={(event) => {
-                        if (regionError) {
-                          setRegionError(false);
-                        }
                         setRegion(event.target.value);
                       }}
-                      error={regionError}
                     >
-                      <MenuItem value={10}>Kowloon</MenuItem>
-                      <MenuItem value={20}>Hong Kong Island</MenuItem>
-                      <MenuItem value={30}>New Territories</MenuItem>
+                      <MenuItem value={"Kowloon"}>Kowloon</MenuItem>
+                      <MenuItem value={"Hong Kong Island"}>
+                        Hong Kong Island
+                      </MenuItem>
+                      <MenuItem value={"New Territories"}>
+                        New Territories
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </Stack>
@@ -336,50 +303,22 @@ const CheckOutPage = () => {
                   //   </Button>
                 }
 
-                <Button onClick={handleNextClick}>
+                <Button onClick={handleClickToPayment}>
                   {activeStep === steps.length - 1
                     ? "Continue to payment"
                     : "Continue to shipping"}
                 </Button>
-
-                {/* <Button onClick={handleNext}>
-                              {activeStep === steps.length - 1
-                                ? "Continue to payment"
-                                : "Continue to shipping"}
-                            </Button> */}
               </Box>
             </>
           ) : (
-            // <>
-            //   <Typography sx={{ mt: 2, mb: 1 }}>
-            //     Thank you for you&apos;re payment. The Order has been confirmed!
-            //   </Typography>
-            //   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            //     <Box sx={{ flex: "1 1 auto" }} />
-
-            //     <Button
-            //       onClick={() => {
-            //         navigate("/");
-            //       }}
-            //     >
-            //       Back to homepage
-            //     </Button>
-
-            //     {/* <Button onClick={handleReset}>Reset</Button> */}
-            //   </Box>
-            // </>
-            <PaymentPage handleClickPayment={handleClickPayment} />
+            <PaymentPage
+              handlePayment={handlePayment}
+              handleReturn={() => setActiveStep(1)}
+            />
+            //
           )}
         </Box>
       </Container>
-
-      {/* <stepper activeStep={activeStep}>
-        {steps.map((step) => (
-          <Step key={step}>
-            <StepLabel>{step}</StepLabel>
-          </Step>
-        ))}
-      </stepper> */}
     </>
   );
 };

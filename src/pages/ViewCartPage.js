@@ -87,13 +87,14 @@ const ViewCartPage = () => {
         justifyContent: "center",
         alignItems: "center",
         mt: "1.5rem",
-        mb: "1.5rem",
+        mb: "2.5rem",
       }}
     >
       <Typography
         sx={{
-          color: "#bd9191",
+          color: "#f7bda6",
           fontSize: "30px",
+          mb: "1rem",
         }}
       >
         My Cart
@@ -103,21 +104,60 @@ const ViewCartPage = () => {
         container
         spacing={1}
         sx={{
+          //  color: "#f0d0c5",
+
           my: "0.5rem",
           border: "1px solid #fff",
           justifyContent: "center",
         }}
       >
-        <Grid item sm={6} display={{ xs: "none", sm: "flex" }}>
+        <Grid
+          item
+          sm={6}
+          display={{ xs: "none", sm: "flex" }}
+          sx={{
+            backgroundColor: "#faf3f0",
+            color: "#99bdc4",
+            // fontSize: "15px",
+          }}
+        >
           Product
         </Grid>
-        <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
+        <Grid
+          item
+          sm={2}
+          display={{ xs: "none", sm: "flex" }}
+          sx={{
+            backgroundColor: "#faf3f0",
+            color: "#99bdc4",
+            // fontSize: "18px",
+          }}
+        >
           Price
         </Grid>
-        <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
+        <Grid
+          item
+          sm={2}
+          display={{ xs: "none", sm: "flex" }}
+          sx={{
+            backgroundColor: "#faf3f0",
+            color: "#99bdc4",
+            // fontSize: "18px",
+          }}
+        >
           Quanity
         </Grid>
-        <Grid item sm={2} display={{ xs: "none", sm: "flex" }}>
+        <Grid
+          item
+          sm={2}
+          display={{ xs: "none", sm: "flex" }}
+          sx={{
+            backgroundColor: "#faf3f0",
+            color: "#99bdc4",
+            padding: "0.5rem",
+            // fontSize: "16px",
+          }}
+        >
           Sub Total
         </Grid>
 
@@ -178,8 +218,25 @@ const ViewCartPage = () => {
             </>
           );
         })}
-        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Typography variant="body2">
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            backgroundColor: "#fceee8",
+            padding: "0.5rem",
+          }}
+        >
+          <Typography
+            // variant="body2"
+            sx={{
+              color: "#fcad8d",
+              fontSize: "18px",
+
+              mr: "1rem",
+            }}
+          >
             {`Total: HK${cart.subtotal?.formatted_with_symbol || ""}`}
           </Typography>
         </Grid>
@@ -189,7 +246,13 @@ const ViewCartPage = () => {
             variant="contained"
             // onClick={handleAddCart}
             onClick={handleCheckOut}
-            sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
+            sx={{
+              maxWidth: 200,
+              fontSize: "15px",
+              mt: "1rem",
+              mb: "1rem",
+              mr: "2rem",
+            }}
           >
             Check Out
           </Button>

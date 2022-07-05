@@ -13,7 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { common } from "@mui/material/colors";
 
-import companyLogo from "../images/companyLogo/companyLogoSquare.png";
+// import companyLogo from "../images/companyLogo/companyLogoSquare.png";
+import companyLogo from "../images/companyLogo/Logo1.png";
 
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
@@ -64,6 +65,10 @@ const HeaderBar = () => {
     {
       name: "Payment",
       link: "/payment",
+    },
+    {
+      name: "Fullview",
+      link: "/fullview",
     },
   ];
   const settings = ["Sign Up", "Sign In"];
@@ -176,8 +181,8 @@ const HeaderBar = () => {
     <>
       <Box
         sx={{
-          backgroundColor: "#99505c",
-          //d9bac2
+          backgroundColor: "#a7c3cf",
+          // color: "#99505c",
         }}
       >
         <Container
@@ -190,7 +195,7 @@ const HeaderBar = () => {
         >
           <Typography
             sx={{
-              color: "#f0dfdf",
+              color: "#ffffff",
               fontSize: "13px",
               mt: "0.8rem",
               mb: "1rem",
@@ -213,11 +218,11 @@ const HeaderBar = () => {
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
-            mt: "0.5rem",
+            mt: "1rem",
           }}
         >
           <Link to="/">
-            <img src={companyLogo} width="150px" height="100px" />
+            <img src={companyLogo} width="150px" height="80px" />
           </Link>
         </Container>
         <></>
@@ -373,7 +378,7 @@ const HeaderBar = () => {
           }}
         >
           <Link to="/">
-            <img src={companyLogo} width="150px" height="100px" />
+            <img src={companyLogo} width="120px" height="60px" />
           </Link>
           <Stack
             direction="row"

@@ -67,7 +67,7 @@ const PaymentPage = (props) => {
           },
         },
       };
-      props.handleClickPayment(paymentData);
+      props.handlePayment(paymentData);
     }
   };
 
@@ -86,7 +86,7 @@ const PaymentPage = (props) => {
       >
         <Typography
           sx={{
-            color: "#bd9191",
+            color: "#89cbd9",
             fontSize: "20px",
           }}
         >
@@ -191,31 +191,30 @@ const PaymentPage = (props) => {
           sx={{
             width: "340px",
             mt: "1rem",
+            mb: "1rem",
           }}
         />
 
-        <Button variant="contained" onClick={handleClickPayment}>
+        <Button
+          variant="contained"
+          onClick={handleClickPayment}
+          sx={{
+            mb: "3rem",
+          }}
+        >
           Complete
         </Button>
-        {/* 
-                  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                    <InputLabel id="region">Region</InputLabel>
-                    <Select
-                      size="small"
-                      value={region}
-                      onChange={(event) => {
-                        if (regionError) {
-                          setRegionError(false);
-                        }
-                        setRegion(event.target.value);
-                      }}
-                      error={regionError}
-                    >
-                      <MenuItem value={10}>Kowloon</MenuItem>
-                      <MenuItem value={20}>Hong Kong Island</MenuItem>
-                      <MenuItem value={30}>New Territories</MenuItem>
-                    </Select>
-                  </FormControl> */}
+
+        <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+          <Button
+            color="inherit"
+            //   onClick={handleBack}
+            onClick={() => props.handleReturn()}
+            sx={{ mr: 1 }}
+          >
+            Return to shipping details
+          </Button>
+        </Box>
       </Container>
     </>
   );

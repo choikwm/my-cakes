@@ -36,6 +36,7 @@ const ProductPage = () => {
       sx={{
         // display: { xs: "flex", md: "none" },
         flexDirection: { xs: "column", sm: "row" },
+
         alignItems: "center",
         mt: "1rem",
         mb: "1rem",
@@ -43,17 +44,29 @@ const ProductPage = () => {
     >
       <Typography
         sx={{
-          color: "#bd9191",
+          color: "#99bdc4",
           fontSize: "30px",
           ml: "1rem",
-          mt: "1rem",
+          mt: "2rem",
           mb: "1.5rem",
+          display: "flex",
+          // flexDirection: "row",
+          justifyContent: "center",
+          alignitems: "center",
         }}
       >
         View our collections
       </Typography>
       {loading ? (
-        <Typography variant="body2">
+        <Typography
+          sx={{
+            display: "flex",
+            // flexDirection: "row",
+            justifyContent: "center",
+            alignitems: "center",
+          }}
+          variant="body2"
+        >
           <CircularProgress />
         </Typography>
       ) : (
