@@ -57,8 +57,8 @@ const FooterBar = () => {
 
           <TextField
             style={{ color: "#cfcacc" }}
-            inputProps={{ style: { fontSize: 12 } }} // font size of input text
-            InputLabelProps={{ style: { fontSize: 12 } }} // font size of input label
+            inputProps={{ style: { fontSize: 12 } }}
+            InputLabelProps={{ style: { fontSize: 12 } }}
             value={emailNewsLetter}
             placeholder="Enter your email address here"
             onChange={(event) => {

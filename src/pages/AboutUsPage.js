@@ -1,9 +1,7 @@
 import React from "react";
-
 import { Container } from "@mui/material";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-
 import aboutUsPhoto1 from "../images/aboutUsPageImages/aboutUsPhoto1.jpeg";
 
 const AboutUsPage = () => {
@@ -16,7 +14,6 @@ const AboutUsPage = () => {
           flexDirection: { xs: "column", md: "row" },
           justifyContent: "center",
           alignItems: "center",
-          // height: "100vh",
           my: "2rem",
         }}
       >
@@ -25,7 +22,6 @@ const AboutUsPage = () => {
         {/* BOX IN FULL VIEW */}
         <Box
           sx={{
-            // display: { xs: "none", md: "flex" },
             flexDirection: "column",
             mt: { xs: "1rem", md: 0 },
             ml: { xs: 0, md: "2rem" },

@@ -1,5 +1,4 @@
-import React, { useCallback, useState, useMemo } from "react";
-// import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import React from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 const ImportGoogleMap = () => {
@@ -9,8 +8,8 @@ const ImportGoogleMap = () => {
   };
 
   const center = {
-    lat: 22.279902,
-    lng: 114.185947,
+    lat: 22.297242,
+    lng: 114.171682,
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -18,30 +17,11 @@ const ImportGoogleMap = () => {
     googleMapsApiKey: process.env.REACT_APP_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
 
-  // const [map, setMap] = useState(null);
-
-  // const onLoad = useCallback(function callback(map) {
-  //   const bounds = new window.google.maps.LatLngBounds(center);
-  //   map.fitBounds(bounds);
-  //   setMap(map);
-  // }, []);
-
-  // const onUnmount = useCallback(function callback(map) {
-  //   setMap(null);
-  // }, []);
-
   return (
     <>
       {isLoaded && (
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={center}
-          zoom={15}
-          // onLoad={onLoad}
-          // onUnmount={onUnmount}
-        >
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
           <Marker position={center} />
-          {/* Child components, such as markers, info windows, etc. */}
         </GoogleMap>
       )}
     </>

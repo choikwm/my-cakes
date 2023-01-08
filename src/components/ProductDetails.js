@@ -15,7 +15,10 @@ import commerce from "../lib/commerce";
 
 const ProductDetails = () => {
   const location = useLocation();
+  console.log("location", location);
+
   const data = location.state;
+  console.log("data", data);
   const {
     id: productId,
     name,
@@ -68,6 +71,7 @@ const ProductDetails = () => {
     commerce.cart
       .add(productId, quantity, {
         [variant_groups[0].id]: selectedSize,
+        //  const [selectedSize, setSelectedSize] = useState(defaultOption.id);
         // ... any other group -> options here
       })
       .then((res) => {
@@ -81,51 +85,74 @@ const ProductDetails = () => {
 
   return (
     <>
-      <Container maxWidth="xl" sx={{ mt: "3rem", mb: "3rem" }}>
-        <></>
+      <Stack
+        sx={{
+          mt: "3rem",
+          mb: "3rem",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        direction={{ xs: "column", md: "row" }}
+      >
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
-            // alignItems: "center",
           }}
         >
           <img src={image.url} width="300px" height="300px" alt="" />
+        </Box>
 
-          <Box
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "left",
+            ml: "2rem",
+            mt: "1rem",
+          }}
+        >
+          <Typography
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              // justifyContent: "left",
-              alignItems: "left",
-              ml: "2rem",
+              color: "#bd9191",
+              fontSize: "30px",
             }}
           >
-            <Typography
-              sx={{
-                color: "#bd9191",
-                fontSize: "30px",
-              }}
-            >
-              {name}
-            </Typography>
-            <Typography
-              variant="h9"
-              sx={{ fontSize: "14px", mt: "0.5rem", mb: "0.5rem" }}
-            >
-              Price: HK{selectedPrice}
-            </Typography>
+            {name}
+          </Typography>
 
-            <Stack direction="row">
-              <Typography variant="h9" sx={{ fontSize: "14px", mt: "1rem" }}>
+          <Grid
+            container
+            direction="row"
+            rowSpacing={1}
+            sx={{ mt: "0.2rem", mb: "0.5rem" }}
+          >
+            <Grid item xs={2} md={2}>
+              <Typography variant="h9" sx={{ fontSize: "14px" }}>
+                Price:
+              </Typography>
+            </Grid>
+            <Grid item xs={2} md={2}>
+              <Typography variant="h9" sx={{ fontSize: "16px" }}>
+                HK{selectedPrice}
+              </Typography>
+            </Grid>
+          </Grid>
+
+          {/* <Stack direction="row"> */}
+          <Grid container direction="row" rowSpacing={1} sx={{ mb: "0.5rem" }}>
+            <Grid item xs={2} md={2}>
+              <Typography variant="h9" sx={{ fontSize: "14px" }}>
                 Size:
               </Typography>
+            </Grid>
+            <Grid item xs={2} md={2}>
               <Select
                 value={selectedSize}
                 onChange={handleSizeChange}
                 // MaxWidth="100px"
-                sx={{ maxHeight: 30 }}
+                sx={{ minWidth: 210, maxHeight: 30 }}
               >
                 {variant_groups[0].options.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
@@ -133,76 +160,88 @@ const ProductDetails = () => {
                   </MenuItem>
                 ))}
               </Select>
-            </Stack>
+            </Grid>
+          </Grid>
+          {/* </Stack> */}
 
-            <Stack direction="row">
-              <Typography variant="h9" sx={{ fontSize: "14px", mt: "1rem" }}>
+          {/* <Stack direction="row"> */}
+          <Grid container direction="row" rowSpacing={1} sx={{ mb: "0.5rem" }}>
+            <Grid item xs={2} md={2}>
+              <Typography variant="h9" sx={{ fontSize: "14px" }}>
                 Quanity:
               </Typography>
+            </Grid>
+            <Grid item xs={6} md={6}>
               <Select
                 value={quantity}
                 onChange={handleQuanityChange}
                 width="100px"
-                sx={{ minWidth: 200, maxHeight: 30 }}
+                sx={{ minWidth: 210, maxHeight: 30 }}
               >
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
               </Select>
-            </Stack>
+            </Grid>
+          </Grid>
+          {/* </Stack> */}
 
-            <LoadingButton
-              variant="contained"
-              onClick={handleAddCart}
-              loading={loading}
-              // color={addCartSuccess ? "success" : "primary"}
-              // onClick={() => {
-              //   navigate("/shoppingcart");
-              // }}
-              sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
-            >
-              {addCartSuccess ? "Added successfully" : "Add to Cart"}
-            </LoadingButton>
+          <LoadingButton
+            variant="containeåd"
+            onClick={handleAddCart}
+            loading={loading}
+            sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}
+          >
+            {addCartSuccess ? "Added successfully" : "Add to Cart"}
+          </LoadingButton>
 
-            <Box sx={{ flexDirection: "column", justifyContent: "center" }}>
-              <Typography
-                sx={{
-                  color: "#bd9191",
-                  fontSize: "15px",
-                }}
-              >
-                Description
-              </Typography>
-
-              <Typography
-                sx={{
-                  fontSize: "15px",
-                }}
-              >
-                {productDescription}
-              </Typography>
-            </Box>
-
+          <Box
+            sx={{
+              flexDirection: "column",
+              justifyContent: "center",
+              mr: "1rem",
+            }}
+          >
             <Typography
               sx={{
                 color: "#bd9191",
                 fontSize: "15px",
-                mt: "1rem",
               }}
             >
-              Delivery Details
+              Description
             </Typography>
 
             <Typography
               sx={{
                 fontSize: "15px",
+                maxWidth: 400,
               }}
             >
-              {deliveryDetails}
+              {productDescription}
             </Typography>
           </Box>
+
+          <Typography
+            sx={{
+              color: "#bd9191",
+              fontSize: "15px",
+              mt: "1rem",
+            }}
+          >
+            Delivery Details
+          </Typography>
+
+          <Typography
+            sx={{
+              fontSize: "15px",
+            }}
+          >
+            {deliveryDetails}
+          </Typography>
         </Box>
-      </Container>
+      </Stack>
     </>
   );
 };

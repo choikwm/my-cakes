@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "@mui/material";
-import { Typography } from "@mui/material";
 import commerce from "../lib/commerce";
 import ProductItem from "../components/ProductItem";
+import { Container } from "@mui/material";
+import { Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Stack } from "@mui/material";
 
 const ProductPage = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,6 @@ const ProductPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    // const fetchProducts = () => {
     commerce.products
       .list()
       .then((products) => {
@@ -22,8 +22,6 @@ const ProductPage = () => {
       .catch((error) => {
         console.log("There was an error fetching the products", error);
       });
-    // };
-    // fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -34,7 +32,6 @@ const ProductPage = () => {
     <Container
       maxWidth="md"
       sx={{
-        // display: { xs: "flex", md: "none" },
         flexDirection: { xs: "column", sm: "row" },
 
         alignItems: "center",
@@ -50,18 +47,17 @@ const ProductPage = () => {
           mt: "2rem",
           mb: "1.5rem",
           display: "flex",
-          // flexDirection: "row",
           justifyContent: "center",
           alignitems: "center",
         }}
       >
         View our collections
       </Typography>
+
       {loading ? (
         <Typography
           sx={{
             display: "flex",
-            // flexDirection: "row",
             justifyContent: "center",
             alignitems: "center",
           }}
@@ -71,9 +67,16 @@ const ProductPage = () => {
         </Typography>
       ) : (
         <>
-          {products.map((item) => (
-            <ProductItem key={item.id} data={item} />
-          ))}
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={{ xs: 3, md: 3 }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            {products.map((item) => (
+              <ProductItem key={item.id} data={item} />
+            ))}
+          </Stack>
         </>
       )}
     </Container>

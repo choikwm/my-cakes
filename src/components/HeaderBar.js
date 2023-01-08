@@ -11,23 +11,14 @@ import Button from "@mui/material/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { common } from "@mui/material/colors";
-
-// import companyLogo from "../images/companyLogo/companyLogoSquare.png";
+import TextField from "@mui/material/TextField";
+import Popover from "@mui/material/Popover";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import companyLogo from "../images/companyLogo/Logo1.png";
-
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-// import Badge from "@mui/material/Badge";
-// import AccountCircle from "@mui/icons-material/AccountCircle";
-// import MailIcon from "@mui/icons-material/Mail";
-// import NotificationsIcon from "@mui/icons-material/Notifications";
-// import MoreIcon from "@mui/icons-material/MoreVert";
-
-import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
@@ -49,7 +40,6 @@ const HeaderBar = () => {
       name: "Products",
       link: "/products",
     },
-
     {
       name: "Contact Us",
       link: "/contactus",
@@ -66,12 +56,18 @@ const HeaderBar = () => {
       name: "Payment",
       link: "/payment",
     },
+  ];
+  const viewAccount = [
     {
-      name: "Fullview",
-      link: "/fullview",
+      name: "Sign Up",
+      link: "/signup",
+    },
+
+    {
+      name: "Login",
+      link: "/login",
     },
   ];
-  const settings = ["Sign Up", "Sign In"];
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -222,57 +218,17 @@ const HeaderBar = () => {
           }}
         >
           <Link to="/">
-            <img src={companyLogo} width="150px" height="80px" />
+            <img
+              src={companyLogo}
+              alt="Company Logo"
+              width="150px"
+              height="80px"
+            />
           </Link>
         </Container>
         <></>
-        {/* <Container maxWidth="lg" sx={{ display: { xs: "none", md: "flex" } }}> */}
-        <Toolbar sx={{ display: { xs: "none", md: "flex" } }}>
-          {/* <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "flex", md: "none" },
-              }}
-            >
-              <IconButton
-                size="large"
-                aria-label="My Account"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{ display: { xs: "block", md: "none" } }}
-              >
-                {pages.map((page) => (
-                  <MenuItem
-                    key={page.link}
-                    onClick={() => {
-                      navigate(page.link);
-                    }}
-                  >
-                    <Typography textAlign="center">{page.name}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box> */}
 
+        <Toolbar sx={{ display: { xs: "none", md: "flex" } }}>
           <Box
             sx={{
               flexGrow: 1,
@@ -302,6 +258,7 @@ const HeaderBar = () => {
             />
           </Search>
 
+          {/* Below for the sign up and login button */}
           <Box
             sx={{
               display: "flex",
@@ -310,7 +267,7 @@ const HeaderBar = () => {
             }}
           >
             <Tooltip title="My Account">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu}>
                 <AccountBoxIcon />
               </IconButton>
             </Tooltip>
@@ -330,45 +287,32 @@ const HeaderBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              {viewAccount.map((viewAccount) => (
+                <Button
+                  key={viewAccount.link}
+                  onClick={() => {
+                    navigate(viewAccount.link);
+                  }}
+                  sx={{ display: "block" }}
+                >
+                  {viewAccount.name}
+                </Button>
               ))}
             </Menu>
 
             <Tooltip title="View Shopping Cart">
               <IconButton
-                onClick={toggleDrawer(true)}
-                sx={{ p: 0, ml: "0.5rem", mr: "0.5rem" }}
+                onClick={() => {
+                  navigate("/viewcart");
+                }}
               >
                 <ShoppingCartIcon />
               </IconButton>
             </Tooltip>
-
-            <Drawer
-              anchor="right"
-              open={isViewCartOpen}
-              onClose={toggleDrawer(false)}
-            >
-              {list()}
-            </Drawer>
           </Box>
         </Toolbar>
-        {/* </Container> */}
 
         {/* Container for XS view */}
-
-        {/* <Container
-          maxWidth="xl"
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            display: { xs: "flex", md: "none" },
-          }}
-        > */}
 
         <Toolbar
           sx={{
@@ -378,14 +322,14 @@ const HeaderBar = () => {
           }}
         >
           <Link to="/">
-            <img src={companyLogo} width="120px" height="60px" />
+            <img
+              src={companyLogo}
+              alt="Company Logo"
+              width="120px"
+              height="60px"
+            />
           </Link>
-          <Stack
-            direction="row"
-            // sx={{
-            //   display: { xs: "flex", md: "none" },
-            // }}
-          >
+          <Stack direction="row">
             <IconButton
               size="large"
               aria-label="My Account"
@@ -425,34 +369,33 @@ const HeaderBar = () => {
               ))}
             </Menu>
 
-            {/* <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex" },
-              }}
-            >
-              {pages.map((page) => (
-                <Button
-                  key={page.link}
-                  onClick={() => {
-                    navigate(page.link);
-                  }}
-                  sx={{ color: "white", display: "block" }}
-                >
-                  {page.name}
-                </Button>
-              ))}
-            </Box> */}
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                // sx={{ display: { xs: "none", md: "flex" } }}
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            <PopupState variant="popover" popupId="demoPopover">
+              {(popupState) => (
+                <>
+                  <Tooltip title="Search...">
+                    <IconButton {...bindTrigger(popupState)}>
+                      <SearchIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Popover
+                    {...bindPopover(popupState)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <TextField
+                      label="Search for?"
+                      sx={{ maxHeight: 50, maxWidth: 150 }}
+                    ></TextField>
+                  </Popover>
+                </>
+              )}
+            </PopupState>
 
             <Tooltip title="My Account">
               <IconButton onClick={handleOpenUserMenu}>
@@ -460,118 +403,17 @@ const HeaderBar = () => {
               </IconButton>
             </Tooltip>
 
-            {/* <Menu
-                // sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu> */}
-
             <Tooltip title="View Shopping Cart">
-              <IconButton onClick={toggleDrawer(true)} sx={{ mr: "0.5rem" }}>
+              <IconButton
+                onClick={() => {
+                  navigate("/viewcart");
+                }}
+              >
                 <ShoppingCartIcon />
               </IconButton>
             </Tooltip>
-
-            <Drawer
-              anchor="right"
-              open={isViewCartOpen}
-              onClose={toggleDrawer(false)}
-            >
-              {list()}
-            </Drawer>
           </Stack>
         </Toolbar>
-        {/* </Container> */}
-
-        {/* <Container sx={{ display: { xs: "flex", md: "none" } }}>
-          <Link to="/">
-            <img src={companyLogo} width="150px" height="100px" />
-          </Link>
-
-          <Toolbar>
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "flex", md: "none" },
-              }}
-            >
-              <IconButton
-                size="large"
-                aria-label="My Account"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{ display: { xs: "block", md: "none" } }}
-              >
-                {pages.map((page) => (
-                  <MenuItem
-                    key={page.link}
-                    onClick={() => {
-                      navigate(page.link);
-                    }}
-                  >
-                    <Typography textAlign="center">{page.name}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </Toolbar>
-
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-          </Search>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-            }}
-          >
-            <Tooltip title="My Account">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountBoxIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Container> */}
       </AppBar>
     </>
   );

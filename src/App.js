@@ -1,27 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { Outlet, Routes, Route } from "react-router-dom";
 
 import { themeOptions } from "./theme";
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 import HomePage from "./pages/HomePage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ContactUsPage from "./pages/ContactUsPage";
-import PromotionPage from "./pages/PromotionPage";
 import ProductPage from "./pages/ProductPage";
 import ViewCartPage from "./pages/ViewCartPage";
 import CheckOutPage from "./pages/CheckOutPage";
 import PaymentPage from "./pages/PaymentPage";
-import FullViewPage from "./pages/FullViewPage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
 
 import HeaderBar from "./components/HeaderBar";
 import FooterBar from "./components/FooterBar";
 import ProductDetails from "./components/ProductDetails";
-
-// import ReactFullpage from "@fullpage/react-fullpage";
-// import EmojiPicker from "emoji-picker-react";
 
 const ShowHeaderBar = () => {
   return (
@@ -47,7 +44,8 @@ function App() {
           <Route path="products/:id" element={<ProductDetails />} />
           <Route path="viewcart" element={<ViewCartPage />} />
           <Route path="payment" element={<PaymentPage />} />
-          <Route path="fullview" element={<FullViewPage />} />
+          <Route path="signup" element={<SignUpPage />} />
+          <Route path="login" element={<LoginPage />} />
         </Route>
       </Routes>
     </ThemeProvider>

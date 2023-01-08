@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useMemo } from "react";
-
-import { Container } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Box } from "@mui/system";
-
+import React, { useState } from "react";
 import ImportGoogleMap from "../components/ImportGoogleMap";
 import isWeekend from "date-fns/isWeekend";
+import { Container } from "@mui/material";
+import { Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+import meetingImage from "../images/contactUsImages/meeting.svg";
+import messageUsImage from "../images/contactUsImages/messageUs.svg";
 
 const ContactUsPage = () => {
   const [value, setValue] = useState(new Date());
@@ -21,9 +20,7 @@ const ContactUsPage = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          // justifyContent: "center",
           alignItems: "center",
-          // height: "100vh",
           mt: "1rem",
           mb: "2rem",
         }}
@@ -44,9 +41,9 @@ const ContactUsPage = () => {
           variant="h9"
           sx={{ ml: "1rem", mb: "1rem", fontSize: "14px" }}
         >
-          Monday to Friday: 9am - 10:00pm
+          Monday to Friday: 9am - 9pm
           <br></br>
-          Saturday, Sunday and Public Holidays: 10:30am - 10:00pm
+          Saturday, Sunday and Public Holidays: 10am - 10pm
         </Typography>
 
         <Container
@@ -54,7 +51,6 @@ const ContactUsPage = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            // justifyContent: "center",
             alignItems: "center",
           }}
         >
@@ -65,17 +61,18 @@ const ContactUsPage = () => {
           sx={{
             color: "#bd9191",
             fontSize: "30px",
-            ml: "1rem",
-            mt: "7rem",
-            mb: "1.5rem",
+            mt: "4rem",
           }}
         >
           We would love to hear from you
         </Typography>
+
+        <img src={messageUsImage} width="300px" height="300px" alt="" />
+
         <Typography
           variant="h9"
           align="justify"
-          sx={{ ml: "1rem", mb: "1rem", fontSize: "14px" }}
+          sx={{ mb: "1rem", fontSize: "14px" }}
         >
           If you'd like to order, if you have any question about our products or
           if you want to partner with us the best is to drop up a message on
@@ -87,28 +84,27 @@ const ContactUsPage = () => {
           sx={{
             color: "#99bdc4",
             fontSize: "30px",
-            ml: "1rem",
-            mt: "7rem",
+
+            mt: "4rem",
             mb: "0.5rem",
           }}
         >
           Interested in corporate together?
         </Typography>
 
+        <img src={meetingImage} width="300px" height="300px" alt="" />
+
         <Typography
           variant="h9"
-          sx={{ ml: "1rem", mt: "1rem", mb: "1rem", fontSize: "14px" }}
+          sx={{ mt: "1rem", mb: "1rem", fontSize: "14px" }}
         >
           Let's make an appointment below to have a talk!
         </Typography>
 
-        {/* <Container autowidth> */}
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <StaticDatePicker
-            // sx={{ width: 100 }}
             minDate={new Date()}
             orientation="portrait"
-            // sx={{ display: { xs: "portrait", md: "landscape" } }}
             openTo="day"
             value={value}
             shouldDisableDate={isWeekend}
@@ -118,22 +114,6 @@ const ContactUsPage = () => {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        {/* </Container> */}
-
-        {/* <Container
-          maxWidth="lg"
-          sx={{
-            mb: "3rem",
-          }}
-        >
-          {/* <Box sx={{ width: "200px", mt: "1rem" }}>
-            {/* <Calendar
-              sx={{ fontsize: "12px" }}
-              onChange={onChange}
-              value={deliveryDate}
-            /> */}
-        {/* </Box> */}
-        {/* </Container> */}
       </Container>
     </>
   );

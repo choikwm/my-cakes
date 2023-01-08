@@ -30,13 +30,12 @@ const ShippingInformation = () => {
             justifyContent: "center",
             alignItems: "center",
             height: "100vh",
-            // mr: "100rem",
           }}
         >
           <TextField
             size="small"
-            inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-            InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+            inputProps={{ style: { fontSize: 13 } }}
+            InputLabelProps={{ style: { fontSize: 13 } }}
             label="Receiver*"
             type="text"
             value={receiver}
@@ -54,8 +53,8 @@ const ShippingInformation = () => {
 
           <TextField
             size="small"
-            inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-            InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+            inputProps={{ style: { fontSize: 13 } }}
+            InputLabelProps={{ style: { fontSize: 13 } }}
             label="Email*"
             type="email"
             pattern=".+@globex\.com"

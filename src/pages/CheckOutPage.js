@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import commerce from "../lib/commerce";
+import { useNavigate, useLocation } from "react-router-dom";
+import PaymentPage from "./PaymentPage";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -12,12 +15,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import commerce from "../lib/commerce";
-import Grid from "@mui/material/Grid";
-
-import { useNavigate, useLocation } from "react-router-dom";
-import PaymentPage from "./PaymentPage";
-// import ShippingInformation from "../components/ShippingInformation";
 
 const CheckOutPage = () => {
   const [receiver, setReceiver] = useState("");
@@ -31,21 +28,15 @@ const CheckOutPage = () => {
   const [mobileError, setMobileError] = useState(false);
   const [addressError, setAddressError] = useState(false);
   const [districtError, setDistrictError] = useState(false);
-  const [regionError, setRegionError] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
 
   let navigate = useNavigate();
   let location = useLocation();
   const checkoutToken = location?.state?.chekoutToken || "";
-
   console.log("checkoutToken", checkoutToken);
 
   const steps = ["Basket", "Shipping Information", "Payment"];
-
-  //   const stepOne = "Basket"
-  //   const stepTwo = "Shipping Information"
-  //   const stepThree = "Payment"
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -182,8 +173,8 @@ const CheckOutPage = () => {
                 <Stack direction="row">
                   <TextField
                     size="small"
-                    inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-                    InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+                    inputProps={{ style: { fontSize: 13 } }}
+                    InputLabelProps={{ style: { fontSize: 13 } }}
                     label="Receiver*"
                     type="text"
                     value={receiver}
@@ -201,8 +192,8 @@ const CheckOutPage = () => {
 
                   <TextField
                     size="small"
-                    inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-                    InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+                    inputProps={{ style: { fontSize: 13 } }}
+                    InputLabelProps={{ style: { fontSize: 13 } }}
                     label="Mobile*"
                     type="text"
                     value={mobile}
@@ -222,8 +213,8 @@ const CheckOutPage = () => {
 
                 <TextField
                   size="small"
-                  inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-                  InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+                  inputProps={{ style: { fontSize: 13 } }}
+                  InputLabelProps={{ style: { fontSize: 13 } }}
                   label="Address*"
                   type="text"
                   value={address}
@@ -243,8 +234,8 @@ const CheckOutPage = () => {
                 <Stack direction="row">
                   <TextField
                     size="small"
-                    inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-                    InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+                    inputProps={{ style: { fontSize: 13 } }}
+                    InputLabelProps={{ style: { fontSize: 13 } }}
                     label="District*"
                     type="text"
                     value={district}
@@ -287,7 +278,6 @@ const CheckOutPage = () => {
                 <Button
                   color="inherit"
                   disabled={activeStep === 0}
-                  //   onClick={handleBack}
                   onClick={() => {
                     navigate("/viewcart");
                   }}
@@ -296,12 +286,7 @@ const CheckOutPage = () => {
                   Return to cart
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {
-                  isStepOptional(activeStep)
-                  //   <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                  //     Skip
-                  //   </Button>
-                }
+                {isStepOptional(activeStep)}
 
                 <Button onClick={handleClickToPayment}>
                   {activeStep === steps.length - 1

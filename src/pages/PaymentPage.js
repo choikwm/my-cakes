@@ -1,18 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
-// import Stepper from "@mui/material/Stepper";
-// import Step from "@mui/material/Step";
-// import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Container } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Stack } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 
 const PaymentPage = (props) => {
   // BELOW is for the shipping info
@@ -95,13 +88,16 @@ const PaymentPage = (props) => {
 
         <TextField
           size="small"
-          inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-          InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+          inputProps={{ style: { fontSize: 13 } }}
+          InputLabelProps={{ style: { fontSize: 13 } }}
           label="Card holder name in full*"
           type="text"
           value={cardHolderName}
           onChange={(event) => {
+            console.log("event", event);
             if (cardHolderNameError) {
+              console.log("cardHolderNameError", cardHolderNameError);
+
               setCardHolderNameError(false);
             }
             setCardHolderName(event.target.value);
@@ -115,8 +111,8 @@ const PaymentPage = (props) => {
 
         <TextField
           size="small"
-          inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-          InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+          inputProps={{ style: { fontSize: 13 } }}
+          InputLabelProps={{ style: { fontSize: 13 } }}
           label="Payment card number*"
           type="text"
           value={creditCard}
@@ -136,8 +132,8 @@ const PaymentPage = (props) => {
         <Stack direction="row">
           <TextField
             size="small"
-            inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-            InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+            inputProps={{ style: { fontSize: 13 } }}
+            InputLabelProps={{ style: { fontSize: 13 } }}
             label="Expiry Month*"
             type="text"
             value={expiryMonth}
@@ -155,8 +151,8 @@ const PaymentPage = (props) => {
 
           <TextField
             size="small"
-            inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-            InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+            inputProps={{ style: { fontSize: 13 } }}
+            InputLabelProps={{ style: { fontSize: 13 } }}
             label="Expiry Year*"
             type="text"
             value={expiryYear}
@@ -176,8 +172,8 @@ const PaymentPage = (props) => {
 
         <TextField
           size="small"
-          inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-          InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+          inputProps={{ style: { fontSize: 13 } }}
+          InputLabelProps={{ style: { fontSize: 13 } }}
           label="CVC*"
           type="text"
           value={cvc}
@@ -208,7 +204,6 @@ const PaymentPage = (props) => {
         <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
           <Button
             color="inherit"
-            //   onClick={handleBack}
             onClick={() => props.handleReturn()}
             sx={{ mr: 1 }}
           >
