@@ -12,8 +12,11 @@ const ProductPage = () => {
 
   useEffect(() => {
     setLoading(true);
+    console.log("==fetching");
     commerce.products
-      .list()
+      .list({
+        include: "variant_groups",
+      })
       .then((products) => {
         console.log("api products", products);
         setProducts(products.data);
