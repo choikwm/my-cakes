@@ -1,5 +1,6 @@
 import Commerce from "@chec/commerce.js";
 
+// const commerce = new Commerce(process.env.REACT_APP_CHEC_PUBLIC_KEY);
 const checAPIKey = process.env.REACT_APP_CHEC_PUBLIC_KEY;
 const devEnvironment = process.env.NODE_ENV === "development";
 
@@ -7,7 +8,7 @@ const commerceConfig = {
   axiosConfig: {
     headers: {
       "X-Chec-Agent": "commerce.js/v2",
-      "Chec-Version": "2021-10-06",
+      "Chec-Version": "2022-07-21",
     },
   },
 };
@@ -18,4 +19,9 @@ if (devEnvironment && !checAPIKey) {
   );
 }
 
-export default new Commerce(checAPIKey, devEnvironment, commerceConfig);
+export default new Commerce(
+  // commerce,
+  checAPIKey,
+  devEnvironment,
+  commerceConfig
+);
