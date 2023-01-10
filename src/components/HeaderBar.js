@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,6 +17,7 @@ import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import companyLogo from "../images/companyLogo/Logo1.png";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { styled, alpha } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import List from "@mui/material/List";
@@ -28,8 +29,11 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate, Link } from "react-router-dom";
 import { Stack } from "@mui/material";
+import { CartContext } from "./CartContext";
 
 const HeaderBar = () => {
+  const { totalItems, setTotalItems } = useContext(CartContext);
+
   // const pages = ["About Us", "Products", "Promotions", "Blog", "Contact Us"];
   const pages = [
     {
@@ -43,18 +47,6 @@ const HeaderBar = () => {
     {
       name: "Contact Us",
       link: "/contactus",
-    },
-    {
-      name: "Cart",
-      link: "/viewcart",
-    },
-    {
-      name: "Checkout",
-      link: "/checkout",
-    },
-    {
-      name: "Payment",
-      link: "/payment",
     },
   ];
   const viewAccount = [
@@ -306,7 +298,9 @@ const HeaderBar = () => {
                   navigate("/viewcart");
                 }}
               >
-                <ShoppingCartIcon />
+                <Badge badgeContent={totalItems} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
               </IconButton>
             </Tooltip>
           </Box>
@@ -409,7 +403,9 @@ const HeaderBar = () => {
                   navigate("/viewcart");
                 }}
               >
-                <ShoppingCartIcon />
+                <Badge badgeContent={totalItems} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
               </IconButton>
             </Tooltip>
           </Stack>

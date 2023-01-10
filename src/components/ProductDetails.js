@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Container, Stack } from "@mui/material";
+import React, { useState, useContext } from "react";
+import { Stack } from "@mui/material";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import Select from "@mui/material/Select";
@@ -10,10 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import FormControl from "@mui/material/FormControl";
 import commerce from "../lib/commerce";
+import { CartContext } from "../components/CartContext";
 
 const ProductDetails = () => {
+  const { totalItems, setTotalItems } = useContext(CartContext);
+
   const location = useLocation();
   console.log("location", location);
 
@@ -49,10 +50,6 @@ const ProductDetails = () => {
     color: theme.palette.text.secondary,
   }));
 
-  // const functionName = (param, param2, param3) => {
-  //   // whatever you want to do
-  // };
-
   const handleQuanityChange = (event) => {
     console.log("event", event);
     setQuantity(event.target.value);
@@ -78,6 +75,7 @@ const ProductDetails = () => {
         console.log("res add to cart", res);
         setLoading(false);
         setAddCartSuccess(true);
+        setTotalItems(res.total_items);
       });
   };
 
@@ -151,7 +149,6 @@ const ProductDetails = () => {
               <Select
                 value={selectedSize}
                 onChange={handleSizeChange}
-                // MaxWidth="100px"
                 sx={{ minWidth: 210, maxHeight: 30 }}
               >
                 {variant_groups[0].options.map((option) => (
@@ -189,7 +186,7 @@ const ProductDetails = () => {
           {/* </Stack> */}
 
           <LoadingButton
-            variant="containeåd"
+            variant="contained"
             onClick={handleAddCart}
             loading={loading}
             sx={{ maxWidth: 200, fontSize: "15px", mt: "1rem", mb: "1rem" }}

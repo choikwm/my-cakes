@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import { CartContextProvider } from "./components/CartContext";
 
 // import HomePage from "./pages/HomePage";
 // import AboutUsPage from "./pages/AboutUsPage";
@@ -14,8 +15,10 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <CartContextProvider>
         <ScrollToTop />
-      <App />
+        <App />
+      </CartContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
