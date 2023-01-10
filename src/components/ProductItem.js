@@ -21,7 +21,13 @@ const ProductItem = (props) => {
         navigate(`/products/${data.id}`, { state: data });
       }}
     >
-      <img src={image.url} width="300px" height="300px" alt="" />
+      <img
+        style={{ cursor: "pointer" }}
+        src={image.url}
+        width="300px"
+        height="300px"
+        alt=""
+      />
 
       <Typography sx={{ mt: "1rem", fontSize: "18px" }}>{name}</Typography>
 
