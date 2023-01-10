@@ -8,7 +8,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Stack } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
@@ -151,8 +151,8 @@ const CheckOutPage = () => {
 
                 <TextField
                   size="small"
-                  inputProps={{ style: { fontSize: 13 } }} // font size of input text, inline styling
-                  InputLabelProps={{ style: { fontSize: 13 } }} // font size of input label
+                  inputProps={{ style: { fontSize: 13 } }}
+                  InputLabelProps={{ style: { fontSize: 13 } }}
                   label="Email address to receive your order's update*"
                   type="email"
                   pattern=".+@globex\.com"
@@ -170,46 +170,45 @@ const CheckOutPage = () => {
                   }}
                 />
 
-                <Stack direction="row">
-                  <TextField
-                    size="small"
-                    inputProps={{ style: { fontSize: 13 } }}
-                    InputLabelProps={{ style: { fontSize: 13 } }}
-                    label="Receiver*"
-                    type="text"
-                    value={receiver}
-                    onChange={(event) => {
-                      if (receiverError) {
-                        setReceiverError(false);
-                      }
-                      setReceiver(event.target.value);
-                    }}
-                    error={receiverError}
-                    sx={{
-                      mt: "1rem",
-                    }}
-                  />
+                <TextField
+                  size="small"
+                  inputProps={{ style: { fontSize: 13 } }}
+                  InputLabelProps={{ style: { fontSize: 13 } }}
+                  label="Receiver name*"
+                  type="text"
+                  value={receiver}
+                  onChange={(event) => {
+                    if (receiverError) {
+                      setReceiverError(false);
+                    }
+                    setReceiver(event.target.value);
+                  }}
+                  error={receiverError}
+                  sx={{
+                    width: "340px",
+                    mt: "1rem",
+                  }}
+                />
 
-                  <TextField
-                    size="small"
-                    inputProps={{ style: { fontSize: 13 } }}
-                    InputLabelProps={{ style: { fontSize: 13 } }}
-                    label="Mobile*"
-                    type="text"
-                    value={mobile}
-                    onChange={(event) => {
-                      if (mobileError) {
-                        setMobileError(false);
-                      }
-                      setMobile(event.target.value);
-                    }}
-                    error={mobileError}
-                    sx={{
-                      ml: "1rem",
-                      mt: "1rem",
-                    }}
-                  />
-                </Stack>
+                <TextField
+                  size="small"
+                  inputProps={{ style: { fontSize: 13 } }}
+                  InputLabelProps={{ style: { fontSize: 13 } }}
+                  label="Mobile*"
+                  type="text"
+                  value={mobile}
+                  onChange={(event) => {
+                    if (mobileError) {
+                      setMobileError(false);
+                    }
+                    setMobile(event.target.value);
+                  }}
+                  error={mobileError}
+                  sx={{
+                    width: "340px",
+                    mt: "1rem",
+                  }}
+                />
 
                 <TextField
                   size="small"
