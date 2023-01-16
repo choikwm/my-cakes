@@ -1,3 +1,7 @@
+Hi! In order to ensure API keys are securely stored, rules (via Gitignore) are implemented to ignore those keys to be pushed to Github.
+
+Hence, the project would not be able to run start as normal due to lack of API keys. If you would like for any demonstrations, please contact for an arrangement, thank you for your interests!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
