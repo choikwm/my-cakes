@@ -17,9 +17,9 @@ const ProductPage = () => {
       .list({
         include: "variant_groups",
       })
-      .then((products) => {
-        console.log("api products", products);
-        setProducts(products.data);
+      .then((res) => {
+        console.log("api products response", res);
+        setProducts(res.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -28,7 +28,7 @@ const ProductPage = () => {
   }, []);
 
   useEffect(() => {
-    console.log("products", products);
+    console.log("products state", products);
   }, [products]);
 
   return (
@@ -76,9 +76,10 @@ const ProductPage = () => {
             justifyContent="center"
             alignItems="center"
           >
-            {products.map((item) => (
-              <ProductItem key={item.id} data={item} />
-            ))}
+            {products.map((item) => {
+              console.log("mapped item", item);
+              return <ProductItem key={item.id} data={item} />;
+            })}
           </Stack>
         </>
       )}

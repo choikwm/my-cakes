@@ -57,9 +57,8 @@ const ViewCartPage = () => {
       setCart(res);
       // setLoadingQuanityChange(false);
       setLoadingQuanityUpdate((prevState) =>
-        prevState.filter((item) => item === id)
+        prevState.filter((item) => item !== id)
       );
-
       setTotalItems(res.total_items);
     });
   };
