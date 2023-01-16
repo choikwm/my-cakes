@@ -51,7 +51,7 @@ const ProductDetails = () => {
   }));
 
   const handleQuanityChange = (event) => {
-    console.log("event", event);
+    console.log("handleQuanityChange", event);
     setQuantity(event.target.value);
   };
 
