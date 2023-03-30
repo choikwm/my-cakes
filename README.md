@@ -2,6 +2,16 @@ Hi! In order to ensure API keys are securely stored, rules (via Gitignore) are i
 
 Hence, the project would not be able to run start as normal due to lack of API keys. If you would like for any demonstrations, please contact for an arrangement, thank you for your interests!
 
+Summary:
+
+- Developed an online cake shop using React.js
+- Utilised CSS Framework - Material UI
+- React Context to store global state for direct usage in sub-components
+- Implemented Google Maps API and other npm libraries (Calendar)
+- Integrated Commerce.js to power backend API
+- Responsive to different screen sizes
+- Fully functional shopping cart
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
