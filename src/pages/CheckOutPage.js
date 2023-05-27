@@ -15,11 +15,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const CheckOutPage = () => {
   const [receiver, setReceiver] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("testing@test.com");
+  const [mobile, setMobile] = useState("66666666");
   const [address, setAddress] = useState("");
   const [district, setDistrict] = useState("");
   const [region, setRegion] = useState("Kowloon");
@@ -30,6 +31,8 @@ const CheckOutPage = () => {
   const [districtError, setDistrictError] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const [skipped, setSkipped] = useState(new Set());
+  const [loading, setLoading] = useState(false);
+  const [checkOutSuccess, setCheckOutSuccess] = useState(false);
 
   let navigate = useNavigate();
   let location = useLocation();
@@ -74,6 +77,9 @@ const CheckOutPage = () => {
   };
 
   const handlePayment = (paymentData) => {
+    setLoading(true);
+
+    // send check out data to server
     console.log("paymentData", paymentData);
     const checkoutData = {
       customer: {
@@ -84,7 +90,7 @@ const CheckOutPage = () => {
         name: receiver,
         street: address,
         town_city: district,
-        county_state: region,
+        country_state: "CA",
       },
       ...paymentData,
     };
@@ -92,6 +98,8 @@ const CheckOutPage = () => {
     console.log("checkoutToken", checkoutToken);
     commerce.checkout.capture(checkoutToken, checkoutData).then((res) => {
       console.log("res", res);
+      setLoading(false);
+      setCheckOutSuccess(true);
     });
   };
 
@@ -295,11 +303,63 @@ const CheckOutPage = () => {
               </Box>
             </>
           ) : (
-            <PaymentPage
-              handlePayment={handlePayment}
-              handleReturn={() => setActiveStep(1)}
-            />
-            //
+            <>
+              {loading ? (
+                <Container
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minHeight: "100vh",
+                  }}
+                >
+                  <CircularProgress />
+                  <Typography
+                    style={{
+                      margin: "2rem",
+                      textAlign: "center",
+                      fontWeight: "bold",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    We are processing your payment, please wait a bit, thank you
+                  </Typography>
+                </Container>
+              ) : checkOutSuccess ? (
+                <>
+                  <Container
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      minHeight: "100vh",
+                    }}
+                  >
+                    <Typography
+                      style={{
+                        margin: "2rem",
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      Thank you for your order!
+                      <br></br>
+                      <br></br>
+                      Your Order No.:
+                      {checkoutToken.slice(-5)}
+                    </Typography>
+                  </Container>
+                </>
+              ) : (
+                <PaymentPage
+                  handlePayment={handlePayment}
+                  handleReturn={() => setActiveStep(1)}
+                />
+              )}
+            </>
           )}
         </Box>
       </Container>

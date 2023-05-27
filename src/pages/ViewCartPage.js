@@ -80,8 +80,9 @@ const ViewCartPage = () => {
     // setEmptyCheckOutError(false);
     commerce.checkout
       .generateTokenFrom("cart", commerce.cart.id())
+
       .then((response) => {
-        console.log(response.id);
+        console.log("response.id", response.id);
         const token = {
           chekoutToken: response.id,
         };
