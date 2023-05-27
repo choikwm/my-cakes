@@ -10,15 +10,16 @@ import { Stack } from "@mui/material";
 const PaymentPage = (props) => {
   // BELOW is for the shipping info
   const [cardHolderName, setCardHolderName] = useState("");
-  const [creditCard, setCreditCard] = useState("");
-  const [expiryMonth, setExpiryMonth] = useState("");
-  const [expiryYear, setExpiryYear] = useState("");
-  const [cvc, setCvc] = useState("");
+  const [creditCard, setCreditCard] = useState("4242424242424242");
+  const [expiryMonth, setExpiryMonth] = useState("01");
+  const [expiryYear, setExpiryYear] = useState("23");
+  const [cvc, setCvc] = useState("123");
   const [cardHolderNameError, setCardHolderNameError] = useState(false);
   const [creditCardError, setCreditCardError] = useState(false);
   const [expiryMonthError, setExpiryMonthError] = useState(false);
   const [expiryYearError, setExpiryYearError] = useState(false);
   const [cvcError, setCvcError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   let location = useLocation();
   const checkoutData = location?.state || {};
@@ -57,6 +58,7 @@ const PaymentPage = (props) => {
             expiry_month: expiryMonth,
             expiry_year: expiryYear,
             cvc,
+            postal_zip_code: "94103",
           },
         },
       };
@@ -115,6 +117,7 @@ const PaymentPage = (props) => {
           InputLabelProps={{ style: { fontSize: 13 } }}
           label="Payment card number*"
           type="text"
+          // value="4242 4242 4242 4242"
           value={creditCard}
           onChange={(event) => {
             if (creditCardError) {
